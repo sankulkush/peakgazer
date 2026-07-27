@@ -5,8 +5,8 @@ export default function Home() {
     <main className="flex-1">
       <HeroSection />
 
-      {/* Placeholder so the hero has somewhere to scroll into — replaced by
-          the Nature / Nightlife / Religious chapters next. */}
+      {/* Placeholder so the hero has somewhere to scroll into. Replaced in
+          Phase D by the four journeys, group pricing and the founder. */}
       <section
         id="journeys"
         className="flex min-h-screen items-center justify-center bg-[#05040c] px-6"
