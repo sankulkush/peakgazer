@@ -45,9 +45,20 @@ function formatInquiry(data: InquiryInput): string {
   ].join("\n");
 }
 
+/**
+ * Delivery address. Lives here rather than in content/company.ts on purpose:
+ * that module is imported by client components, so anything in it ships in the
+ * browser bundle. This file is "use server" and never reaches the client.
+ *
+ * TODO before launch: replace with an address on the real brand's domain. This
+ * one carries the wrong name and must never be shown to a customer — WhatsApp
+ * is the visible contact channel.
+ */
+const FALLBACK_TO_EMAIL = "uthbus021@gmail.com";
+
 async function deliver(subject: string, body: string): Promise<boolean> {
   const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.INQUIRY_TO_EMAIL;
+  const to = process.env.INQUIRY_TO_EMAIL ?? FALLBACK_TO_EMAIL;
   const from = process.env.INQUIRY_FROM_EMAIL;
 
   // No key configured: log and succeed, so the flow is testable locally

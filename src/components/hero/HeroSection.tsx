@@ -36,6 +36,18 @@ export default function HeroSection() {
           yoyo: true,
         });
 
+        // Sky layer counter-drifts against the base so the cloud belt separates
+        // slightly from the rock. Opposite phase, slightly different period, and
+        // a smaller amplitude — enough to read as air moving, not as a glitch.
+        gsap.set("[data-hero-sky]", { opacity: 1, scale: 1.06 });
+        gsap.to("[data-hero-sky]", {
+          scale: 1.0,
+          duration: 38,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+        });
+
         // Slow parallax on the photograph as the hero is scrolled away.
         gsap.to("[data-hero-image]", {
           yPercent: 6,
@@ -61,6 +73,7 @@ export default function HeroSection() {
         });
 
         // The indicator has done its job the moment the user starts scrolling.
+        // (see below for the scrubbed dismissal)
         //
         // Explicit `fromTo` with `immediateRender: false`: a plain `to` would
         // capture whatever opacity the CSS entrance happened to be showing at
@@ -81,6 +94,34 @@ export default function HeroSection() {
           },
         );
       });
+
+      /*
+        Pointer parallax. Gated on a fine pointer that can hover, so it never
+        runs on touch — where a stray pointermove would jolt the image mid-scroll.
+
+        `quickTo` writes to an existing tween instead of creating one per event,
+        which is what keeps this off the main thread's hot path. The listener is
+        registered inside the matchMedia context so GSAP removes it on revert.
+      */
+      mm.add(
+        "(prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine)",
+        () => {
+          const MAX = 8;
+          const opts = { duration: 0.9, ease: "power2.out" } as const;
+          const xTo = gsap.quickTo("[data-hero-image-inner]", "x", opts);
+          const yTo = gsap.quickTo("[data-hero-image-inner]", "y", opts);
+
+          const onMove = (event: PointerEvent) => {
+            // -0.5..0.5 from centre, inverted so the image leans away from the
+            // cursor. Composes with the ambient scale tween on the same element.
+            xTo(-(event.clientX / window.innerWidth - 0.5) * 2 * MAX);
+            yTo(-(event.clientY / window.innerHeight - 0.5) * 2 * MAX);
+          };
+
+          window.addEventListener("pointermove", onMove, { passive: true });
+          return () => window.removeEventListener("pointermove", onMove);
+        },
+      );
 
       return () => mm.revert();
     },

@@ -34,6 +34,41 @@ export default function HeroBackground() {
             className="object-cover object-left sm:object-center"
           />
         </div>
+
+        {/*
+          Sky counter-drift. A second copy of the same file — same URL, so it is
+          one network request and one decode — masked to the upper band and
+          drifting against the base layer, so the cloud belt separates slightly
+          from the rock.
+
+          The mask fades over a long distance on purpose: a hard edge would
+          shear the ridge line visibly. The differential is deliberately tiny
+          for the same reason.
+
+          Hidden below lg and skipped entirely under reduced motion. A second
+          full-bleed compositing layer is the kind of thing that costs frames on
+          a mid-range Android, and the budget wins over the effect.
+        */}
+        <div
+          data-hero-sky
+          aria-hidden="true"
+          className="absolute inset-0 hidden opacity-0 will-change-transform lg:block"
+          style={{
+            maskImage:
+              "linear-gradient(to bottom, black 0%, black 28%, transparent 62%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, black 0%, black 28%, transparent 62%)",
+          }}
+        >
+          <Image
+            src="/images/hero/annapurna-lake.jpg"
+            alt=""
+            fill
+            quality={82}
+            sizes="100vw"
+            className="object-cover object-left sm:object-center"
+          />
+        </div>
       </div>
 
       {/* Below lg the text spans most of the width, so the scrim has to carry

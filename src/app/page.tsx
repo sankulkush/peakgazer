@@ -1,20 +1,31 @@
 import HeroSection from "@/components/hero/HeroSection";
+import PremiseSection from "@/components/home/PremiseSection";
+import JourneysSection from "@/components/home/JourneysSection";
+import GroupSection from "@/components/home/GroupSection";
+import WhyUsSection from "@/components/home/WhyUsSection";
+import FounderSection from "@/components/home/FounderSection";
+import InquirySection from "@/components/home/InquirySection";
+import Footer from "@/components/layout/Footer";
 
+/**
+ * Sections alternate between image and information, which is the design thesis:
+ * photograph, plain type, treks, the price argument, a bare fact list, the
+ * founder, the form. Everything below the hero is a Server Component except the
+ * three that need interaction — Reveal, the tier chart and the inquiry form.
+ */
 export default function Home() {
   return (
-    <main className="flex-1">
-      <HeroSection />
-
-      {/* Placeholder so the hero has somewhere to scroll into. Replaced in
-          Phase D by the four journeys, group pricing and the founder. */}
-      <section
-        id="journeys"
-        className="flex min-h-screen items-center justify-center bg-[#05040c] px-6"
-      >
-        <p className="font-display text-xl font-medium tracking-tight text-[#e6dfd6]/35">
-          Four treks — built in Phase D.
-        </p>
-      </section>
-    </main>
+    <>
+      <main className="flex-1">
+        <HeroSection />
+        <PremiseSection />
+        <JourneysSection />
+        <GroupSection />
+        <WhyUsSection />
+        <FounderSection />
+        <InquirySection />
+      </main>
+      <Footer />
+    </>
   );
 }
