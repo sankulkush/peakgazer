@@ -36,18 +36,6 @@ export default function HeroSection() {
           yoyo: true,
         });
 
-        // Sky layer counter-drifts against the base so the cloud belt separates
-        // slightly from the rock. Opposite phase, slightly different period, and
-        // a smaller amplitude — enough to read as air moving, not as a glitch.
-        gsap.set("[data-hero-sky]", { opacity: 1, scale: 1.06 });
-        gsap.to("[data-hero-sky]", {
-          scale: 1.0,
-          duration: 38,
-          ease: "sine.inOut",
-          repeat: -1,
-          yoyo: true,
-        });
-
         // Slow parallax on the photograph as the hero is scrolled away.
         gsap.to("[data-hero-image]", {
           yPercent: 6,
