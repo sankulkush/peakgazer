@@ -74,8 +74,9 @@ Three display currencies: **INR (default) · NPR · USD**
 
 - **On cards and listings:** `from ₹X per person at 8 travellers` — the "from" is only
   acceptable because the variable that produces it is named in the same sentence.
-- **On journey pages:** the full range, the group tier table (2/4/6/8/10/12), and the itemised
+- **On journey pages:** the full range, the group tier table (solo/2/4/8), and the itemised
   cost breakdown. Never a bare "from" without the tier table adjacent to it.
+  Solo is a real tier and carries a private-trek premium — do not hide it.
 - The per-person price drops sharply with group size. This is our strongest commercial
   argument — make it prominent, not a footnote.
 

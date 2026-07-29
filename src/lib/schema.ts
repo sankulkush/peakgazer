@@ -34,11 +34,19 @@ export const npr = (amount: number): AmountNPR => amount as AmountNPR;
 
 // ── Money ────────────────────────────────────────────────────────────────
 
-export type GroupSize = 2 | 4 | 6 | 8 | 10 | 12;
+/**
+ * Solo carries a real private-trek premium and is a live segment in this
+ * market. These are the sizes the packages document actually prices; the
+ * partner's per-head operating cost at other sizes is not yet known.
+ */
+export type GroupSize = "solo" | 2 | 4 | 8;
 
 export interface GroupTier {
   groupSize: GroupSize;
+  /** Lower bound — this is the figure the "from ₹X at 8 travellers" card uses. */
   perPerson: AmountNPR;
+  /** Upper bound, where the source quotes a range rather than a point. */
+  perPersonMax?: AmountNPR;
   status: VerificationStatus;
 }
 
@@ -138,6 +146,17 @@ export interface Guide {
   photo: JourneyImage;
 }
 
+export interface Faq {
+  question: string;
+  answer: string;
+}
+
+export interface JourneySeo {
+  title: string;
+  description: string;
+  keywords: string[];
+}
+
 export interface Testimonial {
   quote: string;
   name: string;
@@ -187,6 +206,9 @@ export interface Journey {
   guide: GuideRef;
   images: JourneyImage[];
   testimonials?: Testimonial[];
+  /** Rendered on the page and as FAQPage structured data. */
+  faqs: Faq[];
+  seo: JourneySeo;
   /** Draft journeys never reach the index, sitemap or generateStaticParams. */
   status: "draft" | "published";
   lastVerified: string; // ISO date

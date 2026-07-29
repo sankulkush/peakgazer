@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Photographic masters. Only optimised web copies in public/images/ are committed.
+Assets/
