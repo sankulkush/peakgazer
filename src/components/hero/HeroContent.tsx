@@ -2,16 +2,37 @@ import type { ReactNode } from "react";
 import WhatsAppButton from "@/components/inquiry/WhatsAppButton";
 
 /**
- * Masked line reveal: the wrapper clips, the inner span is what the timeline
- * lifts into view. Avoids a text-splitting plugin and keeps the markup
- * semantic — the heading is still one continuous string to a screen reader.
+ * Entrance timing. The reveal itself lives in globals.css — these are only the
+ * offsets that stagger it. Nothing here exceeds 1.2s: animation never delays
+ * content, and the CTAs must be usable almost immediately.
  */
-function RevealLine({ children }: { children: ReactNode }) {
+const DELAY = {
+  eyebrow: "0.05s",
+  line1: "0.15s",
+  line2: "0.29s",
+  sub: "0.50s",
+  actions: "0.62s",
+} as const;
+
+/**
+ * Masked line reveal: the wrapper clips, the inner span rises into view. Avoids
+ * a text-splitting plugin and keeps the markup semantic — the heading is still
+ * one continuous string to a screen reader.
+ */
+function RevealLine({
+  children,
+  delay,
+}: {
+  children: ReactNode;
+  delay: string;
+}) {
   return (
     <span className="block overflow-hidden pb-[0.16em]">
-      {/* Offset state lives in globals.css — see the note there on why this
-          can't be a Tailwind translate utility. */}
-      <span data-reveal-line className="block will-change-transform">
+      <span
+        data-reveal-line
+        className="block will-change-transform"
+        style={{ animationDelay: delay }}
+      >
         {children}
       </span>
     </span>
@@ -19,8 +40,8 @@ function RevealLine({ children }: { children: ReactNode }) {
 }
 
 /**
- * The typographic overlay. Sits above the scene, owns no animation of its own —
- * the hero timeline drives it through `data-*` hooks.
+ * The typographic overlay. Renders visible; the entrance is a CSS animation, so
+ * a script failure can only cost the animation, never the words.
  */
 export default function HeroContent() {
   return (
@@ -32,7 +53,8 @@ export default function HeroContent() {
       <div className="max-w-xl lg:max-w-[38%]">
         <p
           data-hero-eyebrow
-          className="mb-5 text-[0.9rem] font-medium text-[#e9c9a8] opacity-0"
+          className="mb-5 text-[0.9rem] font-medium text-[#e9c9a8]"
+          style={{ animationDelay: DELAY.eyebrow }}
         >
           Pokhara · Kathmandu
         </p>
@@ -44,14 +66,19 @@ export default function HeroContent() {
           className="font-display max-w-[20em] text-[clamp(1.75rem,2.35vw,2.05rem)] font-semibold leading-[1.12] tracking-[-0.02em] text-balance text-[#f7f2ea]"
           style={{ textShadow: "0 1px 20px rgba(0,0,0,0.4)" }}
         >
-          <RevealLine>Annapurna, Mardi, Langtang.</RevealLine>
-          <RevealLine>We&apos;ll tell you which days are hard.</RevealLine>
+          <RevealLine delay={DELAY.line1}>Annapurna, Mardi, Langtang.</RevealLine>
+          <RevealLine delay={DELAY.line2}>
+            We&apos;ll tell you which days are hard.
+          </RevealLine>
         </h1>
 
         <p
           data-hero-sub
-          className="mt-6 text-[1.0625rem] leading-relaxed text-[#e9e3da] opacity-0 sm:text-lg"
-          style={{ textShadow: "0 1px 20px rgba(0,0,0,0.4)" }}
+          className="mt-6 text-[1.0625rem] leading-relaxed text-[#e9e3da] sm:text-lg"
+          style={{
+            textShadow: "0 1px 20px rgba(0,0,0,0.4)",
+            animationDelay: DELAY.sub,
+          }}
         >
           Real walking hours, real altitudes, and the cost broken down line by
           line. Four treks, five to ten days. Highest point 4,130m.
@@ -59,7 +86,8 @@ export default function HeroContent() {
 
         <div
           data-hero-actions
-          className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4 opacity-0"
+          className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4"
+          style={{ animationDelay: DELAY.actions }}
         >
           <WhatsAppButton className="inline-flex items-center rounded-full bg-[#f0c08c] px-7 py-3.5 text-[0.95rem] font-medium text-[#14110b] transition-colors duration-300 hover:bg-[#f8d3a6]">
             Message on WhatsApp

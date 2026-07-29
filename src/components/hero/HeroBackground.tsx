@@ -59,7 +59,10 @@ export default function HeroBackground() {
         className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(10,12,18,0)_60%,rgba(10,12,18,0.45)_100%)]"
       />
 
-      <figcaption className="absolute right-5 bottom-5 z-10 max-w-[50%] text-right text-[0.68rem] leading-snug text-[#e6dfd6]/55 sm:right-8 sm:bottom-8">
+      {/* Bottom-LEFT deliberately: the persistent WhatsApp bar owns the
+          bottom-right corner on every page, and the scroll indicator owns the
+          centre. Three corners, no collision. */}
+      <figcaption className="absolute bottom-5 left-6 z-10 max-w-[60%] text-[0.68rem] leading-snug text-[#e6dfd6]/55 sm:bottom-8 sm:left-10 lg:left-16">
         {HERO_CAPTION}
       </figcaption>
     </figure>

@@ -6,21 +6,17 @@ import HeroBackground from "./HeroBackground";
 import HeroContent from "./HeroContent";
 import ScrollIndicator from "./ScrollIndicator";
 
+/** Matches the resting opacity set by the CSS entrance in globals.css. */
+const INDICATOR_OPACITY = 0.8;
+
 /**
  * Orchestrator for the landing hero.
  *
- * Holds exactly two responsibilities:
- *   1. the master entrance timeline,
- *   2. the scrubbed parallax as the hero is scrolled away.
- *
- * The scroll indicator's ambient loop belongs to its own component.
+ * GSAP owns only what CSS cannot do: the ambient drift on the photograph and
+ * the scroll-linked behaviour. The text entrance is a CSS animation — see the
+ * note in globals.css. That split is deliberate: nothing a script does, or
+ * fails to do, can hide the headline.
  */
-/** The indicator sits below the CTAs in the hierarchy, so it never reaches full. */
-const INDICATOR_OPACITY = 0.8;
-
-/** Reveals play once per session, not on every return to the homepage. */
-const INTRO_KEY = "hero-intro-played";
-
 export default function HeroSection() {
   const root = useRef<HTMLElement>(null);
 
@@ -28,56 +24,7 @@ export default function HeroSection() {
     () => {
       const mm = gsap.matchMedia();
 
-      // These start hidden in the markup so there is no flash of un-animated
-      // content before hydration. Every branch below is responsible for
-      // putting them back on screen.
-      const revealed = [
-        "[data-hero-eyebrow]",
-        "[data-hero-sub]",
-        "[data-hero-actions]",
-      ];
-
-      // `y: 0` is not redundant. The CSS offset is authored in px and reaches
-      // GSAP through the computed matrix as `y`; clearing `yPercent` alone
-      // would leave it in place. Same reason it is repeated on the reveal
-      // lines below — see the note in globals.css.
-      const settle = () => {
-        gsap.set(revealed, { opacity: 1, y: 0 });
-        gsap.set("[data-scroll-indicator]", {
-          opacity: INDICATOR_OPACITY,
-          y: 0,
-        });
-        gsap.set("[data-reveal-line]", { y: 0, yPercent: 0 });
-      };
-
-      mm.add("(prefers-reduced-motion: reduce)", settle);
-
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        const alreadyPlayed = sessionStorage.getItem(INTRO_KEY) === "1";
-
-        if (alreadyPlayed) {
-          settle();
-        } else {
-          sessionStorage.setItem(INTRO_KEY, "1");
-
-          gsap
-            .timeline({ defaults: { ease: "power3.out", duration: 1.0 } })
-            .to("[data-hero-eyebrow]", { opacity: 1, y: 0 }, 0.2)
-            .fromTo(
-              "[data-reveal-line]",
-              { y: 0, yPercent: 110 },
-              { y: 0, yPercent: 0, duration: 1.1, stagger: 0.14 },
-              0.3,
-            )
-            .to("[data-hero-sub]", { opacity: 1, y: 0 }, 0.78)
-            .to("[data-hero-actions]", { opacity: 1, y: 0 }, 0.92)
-            .to(
-              "[data-scroll-indicator]",
-              { opacity: INDICATOR_OPACITY, y: 0 },
-              1.1,
-            );
-        }
-
         // Ambient drift. One tween, one element, transform only — the
         // photograph is the LCP element and never waits on animation. Sits
         // under the scrubbed parallax, which targets the outer wrapper.
@@ -114,11 +61,10 @@ export default function HeroSection() {
         });
 
         // The indicator has done its job the moment the user starts scrolling.
-        // Opacity only — `y` still belongs to the entrance tween.
         //
         // Explicit `fromTo` with `immediateRender: false`: a plain `to` would
-        // capture the element's opacity at creation time, which is still 0 from
-        // its initial-state class, and the scrub would then pin it invisible.
+        // capture whatever opacity the CSS entrance happened to be showing at
+        // creation time and the scrub would then pin it there.
         gsap.fromTo(
           "[data-scroll-indicator]",
           { opacity: INDICATOR_OPACITY },

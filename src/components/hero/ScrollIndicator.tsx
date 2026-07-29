@@ -43,7 +43,8 @@ export default function ScrollIndicator() {
     <div
       ref={root}
       data-scroll-indicator
-      className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-4 opacity-0 sm:bottom-10"
+      className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-4 opacity-80 sm:bottom-10"
+      style={{ animationDelay: "0.8s" }}
     >
       <span className="text-[0.62rem] uppercase tracking-[0.38em] text-[#e6dfd6]/50">
         Scroll

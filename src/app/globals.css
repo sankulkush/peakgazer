@@ -24,42 +24,72 @@ body {
 }
 
 /**
- * Pre-animation states for elements a GSAP timeline reveals.
+ * Hero entrance — owned by CSS, not by JavaScript.
  *
- * Two traps live here, both already paid for:
+ * The headline carries the brand promise and must never depend on a script
+ * running. Earlier versions shipped the text at `opacity: 0` and relied on GSAP
+ * to reveal it; that hid the headline three separate times. Now the resting
+ * state IS the visible state and these animations only play it in, so the worst
+ * a failure can do is skip an animation.
  *
- * 1. These use `transform`, not Tailwind's translate utilities. Tailwind v4
- *    emits the standalone `translate:` property, which COMPOSES with
- *    `transform` rather than being overridden by it, so GSAP could never
- *    clear it.
- *
- * 2. The offsets are in PIXELS, never percentages. `getComputedStyle().transform`
- *    returns a resolved matrix, so a stylesheet `translateY(110%)` reaches GSAP
- *    as pixels and lands in `y` — while a `yPercent` tween animates a different
- *    property and leaves that pixel offset in place forever. Percentage offsets
- *    belong in the tween, not in CSS.
+ * `animation-fill-mode: backwards` matters. It applies the `from` state during
+ * the delay but releases the element afterwards, so the resting style wins once
+ * the animation ends — and GSAP's scroll-linked tweens can still set inline
+ * styles later. With `forwards` the animation would outrank them and pin the
+ * element, because animations beat inline styles in the cascade.
  */
-[data-reveal-line] {
-  transform: translateY(110%);
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-rise-dim {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 0.8;
+    transform: none;
+  }
+}
+
+@keyframes hero-line-rise {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: none;
+  }
 }
 
 [data-hero-eyebrow],
 [data-hero-sub],
 [data-hero-actions] {
-  transform: translateY(24px);
+  animation: hero-rise 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) backwards;
 }
 
-/**
- * The headline carries the brand promise; it must never depend on a script
- * that failed to run. If scripting is unavailable, show everything.
- */
-@media (scripting: none) {
-  [data-reveal-line],
+[data-scroll-indicator] {
+  animation: hero-rise-dim 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) backwards;
+}
+
+[data-reveal-line] {
+  animation: hero-line-rise 1.05s cubic-bezier(0.22, 0.61, 0.36, 1) backwards;
+}
+
+/* A designed state, not a fallback: the content simply arrives. */
+@media (prefers-reduced-motion: reduce) {
   [data-hero-eyebrow],
   [data-hero-sub],
   [data-hero-actions],
-  [data-scroll-indicator] {
-    transform: none;
-    opacity: 1;
+  [data-scroll-indicator],
+  [data-reveal-line] {
+    animation: none;
   }
 }
