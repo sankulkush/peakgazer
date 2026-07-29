@@ -20,17 +20,17 @@ export default function ScrollIndicator() {
         // One timeline rather than two tweens, so the fade in and fade out
         // never compete for the same `opacity` on a given frame.
         gsap
-          .timeline({ repeat: -1, repeatDelay: 0.4 })
+          .timeline({ repeat: -1, repeatDelay: 1.4 })
           .fromTo(
             "[data-scroll-spark]",
             { yPercent: -110, opacity: 0 },
-            { yPercent: 40, opacity: 1, duration: 0.9, ease: "power1.out" },
+            { yPercent: 40, opacity: 1, duration: 1.5, ease: "sine.out" },
           )
           .to("[data-scroll-spark]", {
             yPercent: 260,
             opacity: 0,
-            duration: 1.3,
-            ease: "power1.in",
+            duration: 2.1,
+            ease: "sine.in",
           });
       });
 

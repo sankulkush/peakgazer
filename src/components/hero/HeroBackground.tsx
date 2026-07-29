@@ -1,44 +1,67 @@
-import CloudLayer from "./CloudLayer";
-import MountainRange from "./MountainRange";
-import { RIDGES } from "./hero.data";
+import Image from "next/image";
+
+/** TODO: supplied by the founder. Caption rule — name the place and the month. */
+const HERO_CAPTION = "TODO — place, month year";
 
 /**
- * The full dawn scene: sky wash → sun bloom → drifting haze → ridge stack →
- * vignette. Purely presentational; every element is animated from the hero's
- * timeline via its `data-*` hook, so this stays a server component apart from
- * the cloud layer's own ambient loop.
+ * Full-bleed photograph with a directional scrim.
+ *
+ * The scrim runs horizontally rather than being a flat overlay: this is a
+ * high-key image (white snow, bright turquoise water) and uniform darkening
+ * would destroy the right two thirds. Text lives in the shadowed left column;
+ * the lake and the peaks stay clean.
+ *
+ * Two nested wrappers around the image on purpose — the outer is the parallax
+ * target (scrubbed), the inner is the entrance target. Separate elements, so
+ * neither animation writes to the other's transform.
  */
 export default function HeroBackground() {
   return (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-0 overflow-hidden"
-    >
-      {/* Pre-dawn sky, night at the zenith falling to alpenglow at the horizon */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,#04050d_0%,#0a0f2b_22%,#1e1c45_42%,#4a2f57_62%,#8b4a5f_78%,#d1815f_92%,#e8a878_100%)]" />
-
-      {/* Sun bloom sitting just behind the skyline. Centred with margins rather
-          than translate utilities so the transform belongs solely to GSAP. */}
+    <figure className="pointer-events-none absolute inset-0 m-0 overflow-hidden">
+      {/* Over-tall, so a scrubbed vertical shift never exposes an edge. */}
       <div
-        data-sun
-        className="absolute left-1/2 top-[58%] -ml-[30vh] -mt-[30vh] h-[60vh] w-[60vh] rounded-full bg-[radial-gradient(circle,rgba(255,203,140,0.55)_0%,rgba(240,150,105,0.28)_38%,rgba(240,150,105,0)_70%)] opacity-0 blur-2xl"
+        data-hero-image
+        className="absolute inset-x-0 -inset-y-[7%] will-change-transform"
+      >
+        <div data-hero-image-inner className="absolute inset-0">
+          <Image
+            src="/images/hero/annapurna-lake.jpg"
+            alt="A glacial lake below snow-covered peaks in the Annapurna region"
+            fill
+            priority
+            quality={82}
+            sizes="100vw"
+            className="object-cover object-left sm:object-center"
+          />
+        </div>
+      </div>
+
+      {/* Below lg the text spans most of the width, so the scrim has to carry
+          all the way across. Still directional, but the delta is small — there
+          is pure white snow under the text here and it measures 1.6:1 without
+          this much cover. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-[linear-gradient(to_right,rgba(10,12,18,0.86)_0%,rgba(10,12,18,0.78)_50%,rgba(10,12,18,0.72)_100%)] lg:hidden"
       />
 
-      <CloudLayer />
-
-      {RIDGES.map((ridge) => (
-        <MountainRange key={ridge.id} ridge={ridge} />
-      ))}
-
-      {/* Valley haze pooling between the near ridges */}
+      {/* lg and up: the text column ends at ~42% of the viewport, so the scrim
+          holds to 46% and then falls away fast. Everything past 66% is the
+          untouched photograph — snow, sky and lake stay clean. */}
       <div
-        data-valley-haze
-        className="absolute inset-x-0 bottom-[18%] h-[26%] bg-[linear-gradient(to_top,rgba(120,110,175,0)_0%,rgba(150,130,185,0.22)_45%,rgba(150,130,185,0)_100%)] blur-xl"
+        aria-hidden="true"
+        className="absolute inset-0 hidden bg-[linear-gradient(to_right,rgba(10,12,18,0.86)_0%,rgba(10,12,18,0.80)_25%,rgba(10,12,18,0.72)_46%,rgba(10,12,18,0.25)_58%,rgba(10,12,18,0)_66%)] lg:block"
       />
 
-      {/* Cinematic falloff — keeps the type legible against the sky */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(4,5,13,0.55)_100%)]" />
-      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#05040c] to-transparent" />
-    </div>
+      {/* Holds the lower edge so the scroll indicator and caption stay legible. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(10,12,18,0)_60%,rgba(10,12,18,0.45)_100%)]"
+      />
+
+      <figcaption className="absolute right-5 bottom-5 z-10 max-w-[50%] text-right text-[0.68rem] leading-snug text-[#e6dfd6]/55 sm:right-8 sm:bottom-8">
+        {HERO_CAPTION}
+      </figcaption>
+    </figure>
   );
 }

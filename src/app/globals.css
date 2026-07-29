@@ -8,8 +8,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-display: var(--font-cormorant);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-bricolage);
 }
 
 html {
@@ -26,11 +26,18 @@ body {
 /**
  * Pre-animation states for elements a GSAP timeline reveals.
  *
- * These deliberately use `transform` rather than Tailwind's translate
- * utilities. Tailwind v4 emits the standalone `translate:` property, which
- * COMPOSES with `transform` instead of being overridden by it — so GSAP
- * animating to `y: 0` would leave the CSS offset stubbornly in place.
- * Inline styles from GSAP override these on the first tick.
+ * Two traps live here, both already paid for:
+ *
+ * 1. These use `transform`, not Tailwind's translate utilities. Tailwind v4
+ *    emits the standalone `translate:` property, which COMPOSES with
+ *    `transform` rather than being overridden by it, so GSAP could never
+ *    clear it.
+ *
+ * 2. The offsets are in PIXELS, never percentages. `getComputedStyle().transform`
+ *    returns a resolved matrix, so a stylesheet `translateY(110%)` reaches GSAP
+ *    as pixels and lands in `y` — while a `yPercent` tween animates a different
+ *    property and leaves that pixel offset in place forever. Percentage offsets
+ *    belong in the tween, not in CSS.
  */
 [data-reveal-line] {
   transform: translateY(110%);
@@ -40,4 +47,19 @@ body {
 [data-hero-sub],
 [data-hero-actions] {
   transform: translateY(24px);
+}
+
+/**
+ * The headline carries the brand promise; it must never depend on a script
+ * that failed to run. If scripting is unavailable, show everything.
+ */
+@media (scripting: none) {
+  [data-reveal-line],
+  [data-hero-eyebrow],
+  [data-hero-sub],
+  [data-hero-actions],
+  [data-scroll-indicator] {
+    transform: none;
+    opacity: 1;
+  }
 }

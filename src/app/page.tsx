@@ -11,8 +11,8 @@ export default function Home() {
         id="journeys"
         className="flex min-h-screen items-center justify-center bg-[#05040c] px-6"
       >
-        <p className="font-display text-2xl font-light tracking-wide text-[#e6dfd6]/40">
-          The journey continues…
+        <p className="font-display text-xl font-medium tracking-tight text-[#e6dfd6]/35">
+          Four treks — built in Phase D.
         </p>
       </section>
     </main>

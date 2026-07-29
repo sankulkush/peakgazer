@@ -10,13 +10,17 @@ import ScrollIndicator from "./ScrollIndicator";
  * Orchestrator for the landing hero.
  *
  * Holds exactly two responsibilities:
- *   1. the master entrance timeline (scene assembles back-to-front, then type),
- *   2. the scrubbed depth parallax as the hero is scrolled away.
+ *   1. the master entrance timeline,
+ *   2. the scrubbed parallax as the hero is scrolled away.
  *
- * Ambient loops (cloud drift, scroll spark) belong to their own components.
- * Entrance targets the `<svg>` inside each ridge; parallax targets the ridge
- * wrapper — separate elements, so the two never overwrite each other.
+ * The scroll indicator's ambient loop belongs to its own component.
  */
+/** The indicator sits below the CTAs in the hierarchy, so it never reaches full. */
+const INDICATOR_OPACITY = 0.8;
+
+/** Reveals play once per session, not on every return to the homepage. */
+const INTRO_KEY = "hero-intro-played";
+
 export default function HeroSection() {
   const root = useRef<HTMLElement>(null);
 
@@ -24,62 +28,70 @@ export default function HeroSection() {
     () => {
       const mm = gsap.matchMedia();
 
-      // Everything the timeline reveals starts hidden in the markup so there is
-      // no flash of un-animated content before hydration. Both branches below
-      // are responsible for putting it back on screen.
+      // These start hidden in the markup so there is no flash of un-animated
+      // content before hydration. Every branch below is responsible for
+      // putting them back on screen.
       const revealed = [
-        "[data-ridge]",
-        "[data-cloud-layer]",
-        "[data-sun]",
         "[data-hero-eyebrow]",
         "[data-hero-sub]",
         "[data-hero-actions]",
-        "[data-scroll-indicator]",
       ];
 
-      mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set(revealed, { opacity: 1, y: 0, scale: 1 });
-        gsap.set("[data-reveal-line]", { yPercent: 0 });
-      });
+      // `y: 0` is not redundant. The CSS offset is authored in px and reaches
+      // GSAP through the computed matrix as `y`; clearing `yPercent` alone
+      // would leave it in place. Same reason it is repeated on the reveal
+      // lines below — see the note in globals.css.
+      const settle = () => {
+        gsap.set(revealed, { opacity: 1, y: 0 });
+        gsap.set("[data-scroll-indicator]", {
+          opacity: INDICATOR_OPACITY,
+          y: 0,
+        });
+        gsap.set("[data-reveal-line]", { y: 0, yPercent: 0 });
+      };
+
+      mm.add("(prefers-reduced-motion: reduce)", settle);
 
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        const tl = gsap.timeline({
-          defaults: { ease: "power3.out", duration: 1.4 },
+        const alreadyPlayed = sessionStorage.getItem(INTRO_KEY) === "1";
+
+        if (alreadyPlayed) {
+          settle();
+        } else {
+          sessionStorage.setItem(INTRO_KEY, "1");
+
+          gsap
+            .timeline({ defaults: { ease: "power3.out", duration: 1.0 } })
+            .to("[data-hero-eyebrow]", { opacity: 1, y: 0 }, 0.2)
+            .fromTo(
+              "[data-reveal-line]",
+              { y: 0, yPercent: 110 },
+              { y: 0, yPercent: 0, duration: 1.1, stagger: 0.14 },
+              0.3,
+            )
+            .to("[data-hero-sub]", { opacity: 1, y: 0 }, 0.78)
+            .to("[data-hero-actions]", { opacity: 1, y: 0 }, 0.92)
+            .to(
+              "[data-scroll-indicator]",
+              { opacity: INDICATOR_OPACITY, y: 0 },
+              1.1,
+            );
+        }
+
+        // Ambient drift. One tween, one element, transform only — the
+        // photograph is the LCP element and never waits on animation. Sits
+        // under the scrubbed parallax, which targets the outer wrapper.
+        gsap.to("[data-hero-image-inner]", {
+          scale: 1.06,
+          duration: 30,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
         });
 
-        tl.fromTo(
-          "[data-sun]",
-          { opacity: 0, scale: 0.75 },
-          { opacity: 1, scale: 1, duration: 2.6, ease: "power2.out" },
-        )
-          // Skyline assembles from the furthest ridge inward.
-          .fromTo(
-            "[data-ridge]",
-            { opacity: 0, yPercent: 16 },
-            {
-              opacity: 1,
-              yPercent: 0,
-              duration: 1.8,
-              stagger: 0.14,
-              ease: "power3.out",
-            },
-            0.1,
-          )
-          .to("[data-cloud-layer]", { opacity: 1, duration: 3 }, 0.4)
-          .to("[data-hero-eyebrow]", { opacity: 1, y: 0 }, 0.9)
-          .fromTo(
-            "[data-reveal-line]",
-            { yPercent: 110 },
-            { yPercent: 0, duration: 1.5, stagger: 0.12, ease: "power4.out" },
-            1.0,
-          )
-          .to("[data-hero-sub]", { opacity: 1, y: 0 }, 1.5)
-          .to("[data-hero-actions]", { opacity: 1, y: 0 }, 1.7)
-          .to("[data-scroll-indicator]", { opacity: 1, y: 0 }, 2.0);
-
-        // Depth parallax: distant ridges sink, foreground terrain rushes up.
-        gsap.to("[data-ridge-layer]", {
-          yPercent: (_i, el: HTMLElement) => Number(el.dataset.depth) * 24,
+        // Slow parallax on the photograph as the hero is scrolled away.
+        gsap.to("[data-hero-image]", {
+          yPercent: 6,
           ease: "none",
           scrollTrigger: {
             trigger: root.current,
@@ -109,7 +121,7 @@ export default function HeroSection() {
         // its initial-state class, and the scrub would then pin it invisible.
         gsap.fromTo(
           "[data-scroll-indicator]",
-          { opacity: 1 },
+          { opacity: INDICATOR_OPACITY },
           {
             opacity: 0,
             ease: "none",
@@ -132,8 +144,8 @@ export default function HeroSection() {
   return (
     <section
       ref={root}
-      aria-label="Nepal — an invitation"
-      className="relative h-[100svh] w-full overflow-hidden bg-[#04050d]"
+      aria-label="Treks in Annapurna and Langtang"
+      className="relative h-[100svh] w-full overflow-hidden bg-[#0a0c12]"
     >
       <HeroBackground />
 
