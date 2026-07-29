@@ -1,11 +1,5 @@
 import type { ReactNode } from "react";
-
-/**
- * Inert until Phase B. `lib/whatsapp.ts` will own the deep link and the
- * per-context pre-filled message; this becomes a one-line swap once the number
- * arrives. Deliberately not a fabricated number.
- */
-const WHATSAPP_HREF = "#";
+import WhatsAppButton from "@/components/inquiry/WhatsAppButton";
 
 /**
  * Masked line reveal: the wrapper clips, the inner span is what the timeline
@@ -67,12 +61,9 @@ export default function HeroContent() {
           data-hero-actions
           className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4 opacity-0"
         >
-          <a
-            href={WHATSAPP_HREF}
-            className="inline-flex items-center rounded-full bg-[#f0c08c] px-7 py-3.5 text-[0.95rem] font-medium text-[#14110b] transition-colors duration-300 hover:bg-[#f8d3a6]"
-          >
+          <WhatsAppButton className="inline-flex items-center rounded-full bg-[#f0c08c] px-7 py-3.5 text-[0.95rem] font-medium text-[#14110b] transition-colors duration-300 hover:bg-[#f8d3a6]">
             Message on WhatsApp
-          </a>
+          </WhatsAppButton>
 
           <a
             href="#journeys"
