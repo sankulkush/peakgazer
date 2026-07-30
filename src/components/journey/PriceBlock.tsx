@@ -92,6 +92,17 @@ export default function PriceBlock({
         ))}
       </ul>
 
+      {journey.foreignPrice && (
+        <p className="mt-5 border-t border-[#e6dfd6]/8 pt-4 text-[0.875rem] leading-relaxed text-[#e6dfd6]/55">
+          <span className="text-[#f0ece5]">
+            Foreign nationals: USD {journey.foreignPrice.fromUSD}–
+            {journey.foreignPrice.toUSD}.
+          </span>{" "}
+          Quoted separately because the permit rate is three times the SAARC
+          one. Indian nationals pay the rupee price above.
+        </p>
+      )}
+
       <div className="mt-7">
         <WhatsAppButton
           context={{ journeyName: journey.name, groupSize: 8 }}

@@ -1,5 +1,5 @@
 import type { Journey } from "@/lib/schema";
-import { abcShort } from "@/content/journeys/abc-short";
+import { abcSignature } from "@/content/journeys/abc-signature";
 import { abcGhorepani } from "@/content/journeys/abc-ghorepani";
 import { mardi } from "@/content/journeys/mardi";
 
@@ -15,7 +15,7 @@ import { mardi } from "@/content/journeys/mardi";
  *
  * Order is deliberate: it is the order the homepage renders them in.
  */
-const JOURNEYS: Journey[] = [abcShort, mardi, abcGhorepani];
+const JOURNEYS: Journey[] = [abcSignature, mardi, abcGhorepani];
 
 export function getAllJourneys(): Journey[] {
   return JOURNEYS;

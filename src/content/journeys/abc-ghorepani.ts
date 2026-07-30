@@ -21,6 +21,7 @@ export const abcGhorepani: Journey = {
   startCity: "Pokhara",
   endCity: "Pokhara",
   days: 10,
+  nights: 9,
   trekDays: 8,
   maxAltitudeM: 4130,
 

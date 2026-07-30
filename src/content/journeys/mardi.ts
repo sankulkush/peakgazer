@@ -25,6 +25,7 @@ export const mardi: Journey = {
   startCity: "Pokhara",
   endCity: "Pokhara",
   days: 6,
+  nights: 5,
   trekDays: 4,
   maxAltitudeM: 4200,
 

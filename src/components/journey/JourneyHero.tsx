@@ -43,6 +43,11 @@ export default function JourneyHero({ journey }: { journey: Journey }) {
             {journey.name}
           </h1>
 
+          <p className="mt-4 max-w-xl text-[1.0625rem] leading-relaxed text-[#e9e3da]">
+            {journey.days} days in Nepal. The Annapurna Sanctuary at the centre,
+            and everything around it planned.
+          </p>
+
           {/* Three numbers, nothing else. */}
           <p className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 font-display text-[1.05rem] font-medium text-[#f0ece5] sm:text-[1.15rem]">
             <span>{journey.days} days</span>

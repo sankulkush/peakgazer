@@ -1,4 +1,5 @@
-import type { Journey } from "@/lib/schema";
+import { altitude, TBC, walkingRange } from "@/lib/format";
+import { isPending, type Journey } from "@/lib/schema";
 
 const DIFFICULTY_LABEL: Record<Journey["difficulty"], string> = {
   1: "Easy",
@@ -8,30 +9,36 @@ const DIFFICULTY_LABEL: Record<Journey["difficulty"], string> = {
 };
 
 /**
- * Screen 3, upper half — the scannable bar.
- *
- * A real table of real numbers. This is the surface the visitor who is
- * comparing operators lands on, so it holds facts and nothing else.
+ * The scannable bar. Real numbers, and an honest blank where a number is not
+ * confirmed — a figure marked "to be confirmed" is worth more than a plausible
+ * one nobody has checked.
  */
 export default function KeyFacts({ journey }: { journey: Journey }) {
-  const walking = journey.itinerary
-    .map((d) => d.walkingHours)
-    .filter((h): h is [number, number] => h !== null);
-  const minHours = Math.min(...walking.map((h) => h[0]));
-  const maxHours = Math.max(...walking.map((h) => h[1]));
+  const range = walkingRange(journey.itinerary.map((d) => d.walkingHours));
 
-  const facts: { label: string; value: string }[] = [
+  const facts: { label: string; value: string; pending?: boolean }[] = [
     { label: "Duration", value: `${journey.days} days` },
-    { label: "Walking days", value: `${journey.trekDays}` },
     {
-      label: "Highest point",
-      value: `${journey.maxAltitudeM.toLocaleString("en-IN")}m`,
+      label: "Nights away",
+      value: isPending(journey.nights) ? TBC : `${journey.nights}`,
+      pending: isPending(journey.nights),
     },
+    { label: "Walking days", value: `${journey.trekDays}` },
+    { label: "Highest point", value: altitude(journey.maxAltitudeM) },
     { label: "Difficulty", value: DIFFICULTY_LABEL[journey.difficulty] },
-    { label: "Daily walking", value: `${minHours}–${maxHours} hours` },
-    { label: "Starts and ends", value: journey.startCity },
+    {
+      label: "Daily walking",
+      value: range ? `${range[0]}–${range[1]} hours` : TBC,
+      pending: !range,
+    },
+    {
+      label: "Starts and ends",
+      value:
+        journey.startCity === journey.endCity
+          ? journey.startCity
+          : `${journey.startCity} → ${journey.endCity}`,
+    },
     { label: "Best months", value: journey.bestMonths.join(", ") },
-    { label: "Group size", value: "2–12, private for solo" },
   ];
 
   return (
@@ -42,7 +49,11 @@ export default function KeyFacts({ journey }: { journey: Journey }) {
             <dt className="text-[0.72rem] font-medium tracking-[0.08em] text-[#e6dfd6]/40 uppercase">
               {fact.label}
             </dt>
-            <dd className="mt-1.5 text-[0.95rem] leading-snug font-medium text-[#f0ece5]">
+            <dd
+              className={`mt-1.5 text-[0.95rem] leading-snug font-medium ${
+                fact.pending ? "text-[#e6dfd6]/40 italic" : "text-[#f0ece5]"
+              }`}
+            >
               {fact.value}
             </dd>
           </div>
@@ -53,7 +64,7 @@ export default function KeyFacts({ journey }: { journey: Journey }) {
         <p className="mt-4 border-l-2 border-[#e9c9a8]/40 pl-4 text-[0.9rem] leading-relaxed text-[#e6dfd6]/60">
           <span className="text-[#f0ece5]">
             {journey.optionalHighPoint.name} —{" "}
-            {journey.optionalHighPoint.altitudeM.toLocaleString("en-IN")}m.
+            {altitude(journey.optionalHighPoint.altitudeM)}.
           </span>{" "}
           {journey.optionalHighPoint.condition}
         </p>

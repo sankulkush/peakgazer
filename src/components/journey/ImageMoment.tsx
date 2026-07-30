@@ -15,7 +15,7 @@ export default function ImageMoment({
   label,
   line,
   sub,
-  height = "h-[62svh] min-h-[380px]",
+  height = "h-[52svh] min-h-[320px]",
 }: {
   journey: Journey;
   role: ImageRole;

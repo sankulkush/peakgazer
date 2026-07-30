@@ -32,6 +32,20 @@ export type AmountNPR = number & { readonly __brand: "NPR" };
 
 export const npr = (amount: number): AmountNPR => amount as AmountNPR;
 
+/**
+ * A figure we do not hold yet.
+ *
+ * The type exists so a content file can say "not confirmed" instead of being
+ * forced to supply a number. Rendering turns it into "to be confirmed" — never
+ * a plausible-looking guess, which is the failure mode this guards against.
+ */
+export const PENDING = "pending" as const;
+export type Pending = typeof PENDING;
+export type MaybeNumber = number | Pending;
+
+export const isPending = (value: unknown): value is Pending =>
+  value === PENDING;
+
 // ── Money ────────────────────────────────────────────────────────────────
 
 /**
@@ -57,6 +71,13 @@ export interface CostLine {
   note?: string;
 }
 
+/** Foreign nationals pay different permit rates and are quoted separately. */
+export interface ForeignPrice {
+  fromUSD: number;
+  toUSD: number;
+  status: VerificationStatus;
+}
+
 export interface PriceRange {
   min: AmountNPR;
   max: AmountNPR;
@@ -74,18 +95,49 @@ export interface ItineraryDay {
   title: string; // "Kande → Forest Camp"
   from?: string;
   to: string;
-  sleepAltitudeM: number;
+  /** PENDING where the altitude is not in any source document. */
+  sleepAltitudeM: MaybeNumber;
   /** Set only when the day crosses higher than it sleeps. */
-  highPointM?: number;
-  /** null on arrival and departure days. */
-  walkingHours: [number, number] | null;
-  ascentM?: number;
-  descentM?: number;
+  highPointM?: MaybeNumber;
+  /** `null` means genuinely no walking; PENDING means we have not confirmed it. */
+  walkingHours: [number, number] | null | Pending;
+  ascentM?: MaybeNumber;
+  descentM?: MaybeNumber;
   terrain?: string;
   /** Required. Say if the day is hard, dull, enclosed or crowded. */
   honestNote: string;
   isHardestDay?: boolean;
   transport?: "jeep" | "flight" | "bus" | "none";
+  /** A small frame beside this day. */
+  image?: ImageRole;
+  /**
+   * A full-bleed moment placed after this day. Reserved for the emotional
+   * beats — three or four across a journey, not one per day, or it stops being
+   * a journey and becomes a slideshow.
+   */
+  bleed?: { role: ImageRole; line?: string; sub?: string };
+  /** Where the traveller sleeps, when it is not a teahouse. */
+  stay?: string;
+}
+
+/** Real upsells. Never a promised slot or price until it is booked. */
+export interface AddOn {
+  label: string;
+  note: string;
+  /** Everything is on request until the partner confirms availability. */
+  availability: "on request";
+}
+
+export interface SafetyInfo {
+  altitudeProtocol: string;
+  evacuationPolicy: string;
+  weatherPolicy: string;
+  /**
+   * We take no commission on evacuation flights. Held as a status rather than
+   * a boolean because publishing it before the partner confirms it in writing
+   * would be exactly the claim the sector's fraud prosecution was built on.
+   */
+  noCommission: VerificationStatus;
 }
 
 export interface Permit {
@@ -127,8 +179,10 @@ export interface OptionalHighPoint {
  */
 export type ImageRole =
   | "hero"
+  | "arrival"
   | "sunrise"
   | "summitMarker"
+  | "jhinu"
   | "invitation"
   | "trailSteps"
   | "trailForest"
@@ -207,6 +261,8 @@ export interface Journey {
   startCity: BaseCity;
   endCity: BaseCity;
   days: number;
+  /** Nights away. PENDING until the founder confirms the departure day. */
+  nights: MaybeNumber;
   trekDays: number;
   maxAltitudeM: number;
   optionalHighPoint?: OptionalHighPoint;
@@ -216,8 +272,11 @@ export interface Journey {
   bestMonths: Month[];
   permits: Permit[];
   price: PriceRange;
+  foreignPrice?: ForeignPrice;
   costBreakdown: CostLine[];
   itinerary: ItineraryDay[];
+  addOns?: AddOn[];
+  safety?: SafetyInfo;
   /** What this actually is, drawbacks included. Founder's voice. */
   honestParagraph: string;
   honestNotes: string[];
