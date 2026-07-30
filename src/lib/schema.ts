@@ -117,7 +117,29 @@ export interface OptionalHighPoint {
 
 // ── Media and people ─────────────────────────────────────────────────────
 
+/**
+ * Named slots on a journey page. The template asks for a role; the content file
+ * supplies the frame. Adding an image with the right role fills the slot — no
+ * component changes.
+ *
+ * `hero`, `sunrise`, `summitMarker` and `invitation` are the four full-bleed
+ * moments. Everything else is a small frame working beside text.
+ */
+export type ImageRole =
+  | "hero"
+  | "sunrise"
+  | "summitMarker"
+  | "invitation"
+  | "trailSteps"
+  | "trailForest"
+  | "trailValley"
+  | "teahouse"
+  | "food"
+  | "group"
+  | "guide";
+
 export interface JourneyImage {
+  role: ImageRole;
   src: string;
   alt: string;
   place: string; // caption rule

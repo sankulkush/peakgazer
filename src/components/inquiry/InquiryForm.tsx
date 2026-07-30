@@ -23,8 +23,11 @@ type JourneyOption = { slug: string; name: string };
  */
 export default function InquiryForm({
   journeys,
+  defaultJourney = "unsure",
 }: {
   journeys: JourneyOption[];
+  /** Slug to pre-select — a journey page knows which trek is being read. */
+  defaultJourney?: string;
 }) {
   const [pending, startTransition] = useTransition();
   const [result, setResult] = useState<InquiryResult | null>(null);
@@ -36,7 +39,11 @@ export default function InquiryForm({
     formState: { errors },
   } = useForm<InquiryFormValues, unknown, InquiryInput>({
     resolver: zodResolver(inquirySchema),
-    defaultValues: { journey: "unsure", experience: "none", website: "" },
+    defaultValues: {
+      journey: defaultJourney,
+      experience: "none",
+      website: "",
+    },
   });
 
   const onSubmit = (data: InquiryInput) => {

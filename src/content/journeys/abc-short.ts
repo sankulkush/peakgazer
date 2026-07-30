@@ -73,7 +73,8 @@ export const abcShort: Journey = {
       to: "Dovan",
       sleepAltitudeM: 2600,
       walkingHours: [5, 6],
-      terrain: "Stone steps down to the river, then up the far side.",
+      // No `terrain` line: the honest note already describes the ground, and
+      // repeating it reads as padding.
       honestNote:
         "Relentless stone steps down to the river then up the far side. This is the first hard day — the steps punish the knees more than the lungs.",
     },
@@ -84,7 +85,6 @@ export const abcShort: Journey = {
       to: "Machhapuchhre Base Camp",
       sleepAltitudeM: 3700,
       walkingHours: [5, 6],
-      terrain: "The valley narrows and the walls close in.",
       honestNote:
         "The valley narrows and the walls close in. Altitude starts to tell here; the guide watches for it.",
     },

@@ -19,6 +19,7 @@ export const GUIDES: Guide[] = [
     certifications: [],
     homeVillage: "TODO",
     photo: {
+      role: "guide",
       src: "",
       alt: "TODO — guide portrait",
       place: "TODO",
