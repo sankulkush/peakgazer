@@ -1,5 +1,6 @@
 import WhatsAppButton from "@/components/inquiry/WhatsAppButton";
 import ImageSlot, { SlotCaption } from "./ImageSlot";
+import { altitude, count } from "@/lib/format";
 import type { Journey } from "@/lib/schema";
 
 const DIFFICULTY_LABEL: Record<Journey["difficulty"], string> = {
@@ -44,17 +45,16 @@ export default function JourneyHero({ journey }: { journey: Journey }) {
           </h1>
 
           <p className="mt-4 max-w-xl text-[1.0625rem] leading-relaxed text-[#e9e3da]">
-            {journey.days} days in Nepal. The Annapurna Sanctuary at the centre,
-            and everything around it planned.
+            {journey.subtitle}
           </p>
 
           {/* Three numbers, nothing else. */}
           <p className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 font-display text-[1.05rem] font-medium text-[#f0ece5] sm:text-[1.15rem]">
-            <span>{journey.days} days</span>
+            <span>{count(journey.days, "days")}</span>
             <span aria-hidden="true" className="text-[#e6dfd6]/30">
               ·
             </span>
-            <span>{journey.maxAltitudeM.toLocaleString("en-IN")}m</span>
+            <span>{altitude(journey.maxAltitudeM)}</span>
             <span aria-hidden="true" className="text-[#e6dfd6]/30">
               ·
             </span>

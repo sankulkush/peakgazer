@@ -1,6 +1,6 @@
 import Reveal from "@/components/common/Reveal";
 import JourneyCard from "./JourneyCard";
-import { getAllJourneys } from "@/lib/content";
+import { getAllJourneys, getPublishedJourneys } from "@/lib/content";
 
 /**
  * The centrepiece.
@@ -14,10 +14,12 @@ import { getAllJourneys } from "@/lib/content";
  * gates the public index and sitemap.
  */
 export default function JourneysSection() {
-  const journeys = getAllJourneys();
+  // The homepage shows what is actually open. Everything else lives on /treks
+  // with an "opening soon" state — the homepage is not the catalogue.
+  const journeys = getPublishedJourneys();
   const featured = journeys.slice(0, 2);
   const secondary = journeys.slice(2);
-  const missing = 4 - journeys.length;
+  const comingSoon = getAllJourneys().length - journeys.length;
 
   return (
     <section
@@ -30,8 +32,9 @@ export default function JourneysSection() {
             The treks
           </h2>
           <p className="mt-4 text-[1.0625rem] leading-relaxed text-[#e6dfd6]/65">
-            Four routes, five to ten days, all from Pokhara or Kathmandu. Every
-            price below falls as the group grows.
+            Open for booking now. Panchakunda is the rare one, and one of the
+            two our founder has walked himself. Every price below falls as the
+            group grows.
           </p>
         </Reveal>
 
@@ -61,12 +64,19 @@ export default function JourneysSection() {
           </div>
         )}
 
-        {missing > 0 && (
-          <Reveal className="mt-14 max-w-xl">
-            <p className="border-l-2 border-[#e9c9a8]/40 pl-4 text-[0.95rem] leading-relaxed text-[#e6dfd6]/50">
-              Langtang Valley is the fourth trek. Its day-by-day itinerary has
-              not been written into the content layer yet, so it is absent here
-              rather than guessed at.
+        {comingSoon > 0 && (
+          <Reveal className="mt-16 border-t border-[#e6dfd6]/8 pt-10">
+            <p className="max-w-2xl text-[1rem] leading-relaxed text-[#e6dfd6]/60">
+              {comingSoon} more journeys are being prepared — Mardi Himal,
+              Langtang, Tilicho Lake, the Manaslu Circuit and the ten-day
+              Signature Journey. We publish a route when we have our own
+              photographs and a day-by-day we have checked.{" "}
+              <a
+                href="/treks"
+                className="text-[#f0c08c] underline-offset-4 hover:underline"
+              >
+                See all {getAllJourneys().length} with durations and altitudes →
+              </a>
             </p>
           </Reveal>
         )}

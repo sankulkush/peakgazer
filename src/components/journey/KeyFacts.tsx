@@ -1,4 +1,4 @@
-import { altitude, TBC, walkingRange } from "@/lib/format";
+import { altitude, count, plain, TBC, walkingRange } from "@/lib/format";
 import { isPending, type Journey } from "@/lib/schema";
 
 const DIFFICULTY_LABEL: Record<Journey["difficulty"], string> = {
@@ -17,14 +17,26 @@ export default function KeyFacts({ journey }: { journey: Journey }) {
   const range = walkingRange(journey.itinerary.map((d) => d.walkingHours));
 
   const facts: { label: string; value: string; pending?: boolean }[] = [
-    { label: "Duration", value: `${journey.days} days` },
+    {
+      label: "Duration",
+      value: count(journey.days, "days"),
+      pending: isPending(journey.days),
+    },
     {
       label: "Nights away",
       value: isPending(journey.nights) ? TBC : `${journey.nights}`,
       pending: isPending(journey.nights),
     },
-    { label: "Walking days", value: `${journey.trekDays}` },
-    { label: "Highest point", value: altitude(journey.maxAltitudeM) },
+    {
+      label: "Walking days",
+      value: plain(journey.trekDays),
+      pending: isPending(journey.trekDays),
+    },
+    {
+      label: "Highest point",
+      value: altitude(journey.maxAltitudeM),
+      pending: isPending(journey.maxAltitudeM),
+    },
     { label: "Difficulty", value: DIFFICULTY_LABEL[journey.difficulty] },
     {
       label: "Daily walking",

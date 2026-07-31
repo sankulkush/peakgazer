@@ -250,6 +250,17 @@ export interface Testimonial {
 
 export type Difficulty = 1 | 2 | 3 | 4;
 
+/**
+ * Who is speaking on this page.
+ *
+ * `founder` permits first person — "I walked this" — and is allowed on exactly
+ * the two routes the founder has actually walked. Every other journey is
+ * `partner`: real and sellable, described honestly, but never staged as the
+ * founder's own trek. A false experience claim is the one lie this brand
+ * cannot survive, and experienced trekkers are precisely who would catch it.
+ */
+export type Voice = "founder" | "partner";
+
 /** Three of four journeys start in Pokhara. Langtang is the exception. */
 export type BaseCity = "Pokhara" | "Kathmandu";
 
@@ -257,15 +268,22 @@ export interface Journey {
   slug: string;
   name: string;
   nameDevanagari?: string;
+  /** One line under the title in the hero. The honest frame, not a tagline. */
+  subtitle: string;
   region: string; // "Annapurna (ACAP)"
   startCity: BaseCity;
   endCity: BaseCity;
-  days: number;
-  /** Nights away. PENDING until the founder confirms the departure day. */
+  /**
+   * All PENDING-able. A rare route can be real and sellable before its stages
+   * have been written up — the page says "to be confirmed" rather than
+   * inventing a shape for it.
+   */
+  days: MaybeNumber;
   nights: MaybeNumber;
-  trekDays: number;
-  maxAltitudeM: number;
+  trekDays: MaybeNumber;
+  maxAltitudeM: MaybeNumber;
   optionalHighPoint?: OptionalHighPoint;
+  voice: Voice;
   difficulty: Difficulty;
   /** Why it is that tier, in numbers. Never an adjective. */
   difficultyNote: string;

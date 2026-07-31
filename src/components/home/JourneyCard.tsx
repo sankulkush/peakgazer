@@ -1,5 +1,6 @@
 import PlaceholderImage from "@/components/common/PlaceholderImage";
 import { formatFromNPR } from "@/lib/currency";
+import { altitude, count, plain } from "@/lib/format";
 import type { Journey } from "@/lib/schema";
 
 const DIFFICULTY_LABEL: Record<Journey["difficulty"], string> = {
@@ -65,16 +66,16 @@ export default function JourneyCard({
             <div className="flex gap-1.5">
               <dt className="sr-only">Duration</dt>
               <dd>
-                {journey.days} days
+                {count(journey.days, "days")}
                 <span className="text-[#e6dfd6]/40">
                   {" "}
-                  · {journey.trekDays} walking
+                  · {plain(journey.trekDays)} walking
                 </span>
               </dd>
             </div>
             <div className="flex gap-1.5">
               <dt className="sr-only">Maximum altitude</dt>
-              <dd>{journey.maxAltitudeM.toLocaleString("en-IN")}m</dd>
+              <dd>{altitude(journey.maxAltitudeM)}</dd>
             </div>
             <div className="flex gap-1.5">
               <dt className="sr-only">Difficulty</dt>

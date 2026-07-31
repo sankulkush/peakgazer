@@ -26,21 +26,49 @@ The correct tone is competent companionship, not aspirational distance.
 A visitor starts a WhatsApp conversation or submits an inquiry.
 There is no checkout, no payments, no accounts. Every path leads to a human conversation.
 
-## The four journeys — THE ONLY FOUR
+## The catalogue — EIGHT JOURNEYS
 
-1. **Annapurna Base Camp — Short** · 7 days Pokhara→Pokhara · 5 trek days · max 4,130m
-2. **Annapurna Base Camp via Ghorepani & Poon Hill** · 10 days Pokhara→Pokhara · 8 trek days · max 4,130m
-3. **Mardi Himal** · 6 days Pokhara→Pokhara · 4 trek days · max ~4,200m (Upper Viewpoint)
-4. **Langtang Valley** · 7 days Kathmandu→Kathmandu · 5 trek days · max 3,870m (4,984m optional)
+1. **Annapurna Base Camp Signature Journey** · 10 days Kathmandu→Kathmandu · 5 walking days · max 4,130m
+2. **Annapurna Base Camp — Short** · 7 days Pokhara→Pokhara · 5 trek days · max 4,130m
+3. **Annapurna Base Camp via Ghorepani & Poon Hill** · 10 days Pokhara→Pokhara · 8 trek days · max 4,130m
+4. **Mardi Himal** · 6 days Pokhara→Pokhara · 4 trek days · max ~4,200m (Upper Viewpoint)
+5. **Langtang Valley** · 7 days Kathmandu→Kathmandu · 5 trek days · max 3,870m (4,984m optional)
+6. **Panchakunda (North ABC)** · rare route, founder-walked
+7. **Tilicho Lake** · rare route
+8. **Manaslu Circuit** · 12 days · Larke Pass 5,110m · partner-operated, restricted area
 
-Three of the four are Pokhara-based. Langtang is the only Kathmandu-based journey.
+This is a focused set of routes we sell, photograph and stand behind — not a catalogue of
+everything the partner can run. Adding a ninth is a commercial decision, not a content task.
 
-**NEVER add these**, regardless of what older files, comments or git history suggest:
-Everest Base Camp, Manaslu, Makalu, Upper Mustang, Kanchenjunga, or any "Nightlife" category.
+## The rule that governs publishing
 
-They are wrong for this market — too long, too expensive, or restricted-area permits that cost
-more than the entire margin at these price points. This is a settled commercial decision, not
-an oversight. **If a task seems to require one of them, stop and ask.**
+A journey is `status: 'published'` **only when it has BOTH real photography AND real
+itinerary/cost detail.** Everything else is `status: 'draft'`.
+
+- Drafts render "Opening soon — message us" with a WhatsApp inquiry. Never a half-built page,
+  never stock imagery, never an invented itinerary to fill the gap.
+- Drafts stay out of the sitemap and `generateStaticParams`, but **do** appear in the `/treks`
+  index carrying an "opening soon" state. Ship what is real, flag what is coming.
+- If a task would publish a journey without real photographs and real detail, keep it draft.
+
+## Two voices — enforce strictly
+
+A false "I walked this" would break the brand, and the people most likely to catch it are the
+experienced trekkers we most need to trust us.
+
+**Founder-walked — first person permitted.** ONLY these two:
+- Annapurna Base Camp — Short
+- Panchakunda (North ABC)
+
+**Not founder-walked — no first-person experience claim.** Real and sellable, framed as
+"a route we run" or "operated through our partner agency". Honest detail from packages.md and
+real knowledge, never staged as the founder's own trek:
+- ABC Signature Journey · ABC via Ghorepani & Poon Hill · Mardi Himal · Langtang Valley ·
+  Tilicho Lake · Manaslu Circuit
+
+The founder's story and the homepage credibility rest on ABC-Short and Panchakunda
+specifically. Do not imply personal experience of any other route — not in journey copy, not
+on the About page, not in image captions.
 
 ## Treks vs Tours — a deliberate product separation
 

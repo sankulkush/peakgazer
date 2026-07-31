@@ -17,6 +17,8 @@ import {
 export const abcGhorepani: Journey = {
   slug: "annapurna-base-camp-ghorepani",
   name: "Annapurna Base Camp via Ghorepani & Poon Hill",
+  subtitle:
+    "Ten days, eight of them walking. Poon Hill at dawn, then into the sanctuary.",
   region: "Annapurna (ACAP)",
   startCity: "Pokhara",
   endCity: "Pokhara",
@@ -32,6 +34,7 @@ export const abcGhorepani: Journey = {
       "Reached at dawn on day 4 as part of the standard route. Weather decides whether the panorama appears.",
   },
 
+  voice: "partner",
   difficulty: 3,
   difficultyNote:
     "Moderate to demanding. The same peak difficulty as the short version, spread over more days — but eight consecutive walking days instead of five.",
@@ -280,6 +283,6 @@ export const abcGhorepani: Journey = {
     ],
   },
 
-  status: "draft",
-  lastVerified: "2026-07-28",
+  status: "published",
+  lastVerified: "2026-07-31",
 };

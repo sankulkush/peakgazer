@@ -8,6 +8,14 @@ import { isPending, type MaybeNumber, type Pending } from "@/lib/schema";
  */
 export const TBC = "to be confirmed";
 
+export function count(value: MaybeNumber, unit: string): string {
+  return isPending(value) ? TBC : `${value} ${unit}`;
+}
+
+export function plain(value: MaybeNumber): string {
+  return isPending(value) ? TBC : `${value}`;
+}
+
 export function altitude(value: MaybeNumber): string {
   return isPending(value) ? TBC : `${value.toLocaleString("en-IN")}m`;
 }

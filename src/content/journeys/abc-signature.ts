@@ -24,6 +24,8 @@ import { ANNAPURNA_FAQS } from "./shared";
 export const abcSignature: Journey = {
   slug: "annapurna-base-camp-signature",
   name: "Annapurna Base Camp Signature Journey",
+  subtitle:
+    "Ten days in Nepal. The Annapurna Sanctuary at the centre, and everything around it planned.",
   region: "Annapurna (ACAP)",
   startCity: "Kathmandu",
   endCity: "Kathmandu",
@@ -32,6 +34,7 @@ export const abcSignature: Journey = {
   trekDays: 5,
   maxAltitudeM: 4130,
 
+  voice: "partner",
   difficulty: 3,
   difficultyNote:
     "Moderate to demanding. Five walking days, two of them long, with steep stone-step sections and a fast gain to 4,130m. No technical ground.",

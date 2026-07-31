@@ -1,5 +1,5 @@
 import WhatsAppButton from "@/components/inquiry/WhatsAppButton";
-import { getAllJourneys } from "@/lib/content";
+import { getAllJourneys, getPublishedJourneys } from "@/lib/content";
 import {
   COMPANY_NAME,
   INSTAGRAM_HANDLE,
@@ -20,7 +20,9 @@ const linkClass =
   "text-[0.9rem] text-[#e6dfd6]/55 transition-colors duration-300 hover:text-[#f0c08c]";
 
 export default function Footer() {
-  const journeys = getAllJourneys();
+  // Only published journeys are linked: a draft slug 404s in production.
+  const journeys = getPublishedJourneys();
+  const total = getAllJourneys().length;
   const instagramPending = INSTAGRAM_HANDLE.startsWith("TODO");
 
   return (
@@ -33,9 +35,9 @@ export default function Footer() {
           people who ask.
         */}
         <p className="max-w-2xl text-[1.0625rem] leading-relaxed text-[#e6dfd6]/70">
-          These four are the treks we run most and know best. Planning something
-          else in Nepal — a longer route, a different region, something built
-          around your dates?{" "}
+          We run {total} journeys and publish a route only once we have our own
+          photographs and a day-by-day we have checked. Planning something else
+          in Nepal — a different region, or something built around your dates?{" "}
           <WhatsAppButton
             context={{ journeyName: "a custom route in Nepal" }}
             className="text-[#f0c08c] underline-offset-4 hover:underline"
@@ -90,6 +92,11 @@ export default function Footer() {
                   </a>
                 </li>
               ))}
+              <li>
+                <a href="/treks" className={linkClass}>
+                  All {total} treks, with what is opening soon →
+                </a>
+              </li>
             </ul>
           </nav>
 

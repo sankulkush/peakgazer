@@ -11,6 +11,8 @@ import SafetySection from "@/components/journey/SafetySection";
 import AddOnsSection from "@/components/journey/AddOnsSection";
 import FailureScenarios from "@/components/journey/FailureScenarios";
 import JourneyInvitation from "@/components/journey/JourneyInvitation";
+import VoiceBadge from "@/components/journey/VoiceBadge";
+import OpeningSoon from "@/components/journey/OpeningSoon";
 import WhatsAppButton from "@/components/inquiry/WhatsAppButton";
 import Footer from "@/components/layout/Footer";
 import { getAllJourneys, getJourney, getPublishedJourneys } from "@/lib/content";
@@ -71,18 +73,33 @@ export default async function JourneyPage({
   const journey = getJourney(slug);
   if (!journey) notFound();
 
+  const hasItinerary = journey.itinerary.length > 0;
+  const hasPrice = journey.price.groupTiers.length > 0;
+  const hasIncluded = journey.included.length > 0;
+  const hasFailures = journey.failureScenarios.length > 0;
+
   return (
     <>
       <main className="flex-1">
         {/* 1 — arrival into the whole trip */}
         <JourneyHero journey={journey} />
 
-        {/* 2 — the promise, plain, founder voice */}
+        {/* 2 — the promise, in whichever voice this route is entitled to */}
         <section className={`${SECTION} border-b border-[#e6dfd6]/8`}>
           <div className="mx-auto max-w-3xl">
+            {journey.status === "draft" && (
+              <div className="mb-10">
+                <OpeningSoon journey={journey} />
+              </div>
+            )}
+
             <p className="font-display text-[clamp(1.2rem,2.4vw,1.65rem)] leading-[1.5] font-medium tracking-[-0.01em] text-balance text-[#f0ece5]">
               {journey.honestParagraph}
             </p>
+
+            <div className="mt-8">
+              <VoiceBadge journey={journey} />
+            </div>
           </div>
         </section>
 
@@ -93,7 +110,28 @@ export default async function JourneyPage({
               <KeyFacts journey={journey} />
             </div>
             <div className="lg:col-span-5">
-              <PriceBlock journey={journey} />
+              {hasPrice ? (
+                <PriceBlock journey={journey} />
+              ) : (
+                <div className="rounded-sm border border-[#e6dfd6]/12 bg-[#0e1118] p-6">
+                  <h2 className="font-display text-[1.35rem] font-semibold text-[#f7f2ea]">
+                    What it costs
+                  </h2>
+                  <p className="mt-4 text-[0.95rem] leading-relaxed text-[#e6dfd6]/60">
+                    We have not costed this route yet, and we will not put a
+                    number on this page before we have. Message us and we will
+                    quote it properly for your group size and dates.
+                  </p>
+                  <div className="mt-6">
+                    <WhatsAppButton
+                      context={{ journeyName: journey.name }}
+                      className="inline-flex items-center rounded-full bg-[#f0c08c] px-6 py-3 text-[0.9rem] font-medium text-[#14110b] transition-colors duration-300 hover:bg-[#f8d3a6]"
+                    >
+                      Ask what it costs
+                    </WhatsAppButton>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -104,20 +142,41 @@ export default async function JourneyPage({
             <h2 className="font-display text-[clamp(1.5rem,3vw,2.15rem)] font-semibold tracking-[-0.02em] text-[#f7f2ea]">
               Day by day
             </h2>
-            <p className="mt-4 max-w-2xl text-[1rem] leading-relaxed text-[#e6dfd6]/60">
-              From the airport to the flight home. Where you sleep, how far you
-              walk, and what each day is actually like.
-            </p>
+            {hasItinerary ? (
+              <p className="mt-4 max-w-2xl text-[1rem] leading-relaxed text-[#e6dfd6]/60">
+                Where you sleep, how far you walk, and what each day is actually
+                like.
+              </p>
+            ) : (
+              <div className="mt-6 max-w-2xl border-l-2 border-[#e9c9a8]/40 pl-5">
+                <p className="text-[1rem] leading-relaxed text-[#e6dfd6]/70">
+                  The detailed day-by-day for this route is still being written
+                  from our own notes. We will not paste another operator&apos;s
+                  itinerary in the meantime — on a route walked mostly by
+                  experienced trekkers, that would be spotted immediately.
+                </p>
+                <div className="mt-5">
+                  <WhatsAppButton
+                    context={{ journeyName: journey.name }}
+                    className="inline-flex items-center rounded-full border border-[#f0c08c]/40 px-6 py-3 text-[0.9rem] text-[#f0c08c] transition-colors duration-300 hover:bg-[#f0c08c]/10"
+                  >
+                    Message us for the full plan
+                  </WhatsAppButton>
+                </div>
+              </div>
+            )}
           </div>
         </section>
-        <JourneyArc journey={journey} />
+        {hasItinerary && <JourneyArc journey={journey} />}
 
         {/* 5 — what the price includes, and who walks with you */}
-        <section className={`${SECTION} border-b border-[#e6dfd6]/8`}>
-          <div className={INNER}>
-            <IncludedAndGuide journey={journey} />
-          </div>
-        </section>
+        {hasIncluded && (
+          <section className={`${SECTION} border-b border-[#e6dfd6]/8`}>
+            <div className={INNER}>
+              <IncludedAndGuide journey={journey} />
+            </div>
+          </section>
+        )}
 
         {/* 6 — the unflattering truths */}
         <section className={`${SECTION} border-b border-[#e6dfd6]/8`}>
@@ -141,11 +200,13 @@ export default async function JourneyPage({
         </section>
 
         {/* 9 — when it does not go to plan */}
-        <section className={`${SECTION} border-b border-[#e6dfd6]/8`}>
-          <div className={INNER}>
-            <FailureScenarios journey={journey} />
-          </div>
-        </section>
+        {hasFailures && (
+          <section className={`${SECTION} border-b border-[#e6dfd6]/8`}>
+            <div className={INNER}>
+              <FailureScenarios journey={journey} />
+            </div>
+          </section>
+        )}
 
         {/* 10 — the free evening, and what people add to it */}
         <section className={`${SECTION} border-b border-[#e6dfd6]/8`}>
@@ -167,11 +228,13 @@ export default async function JourneyPage({
         </section>
 
         {/* 11 — the price again, at the decision point */}
-        <section className={`${SECTION} border-b border-[#e6dfd6]/8`}>
-          <div className={`${INNER} lg:max-w-lg`}>
-            <PriceBlock journey={journey} heading="The price again" />
-          </div>
-        </section>
+        {hasPrice && (
+          <section className={`${SECTION} border-b border-[#e6dfd6]/8`}>
+            <div className={`${INNER} lg:max-w-lg`}>
+              <PriceBlock journey={journey} heading="The price again" />
+            </div>
+          </section>
+        )}
 
         {/* 12 — the invitation */}
         <JourneyInvitation journey={journey} />

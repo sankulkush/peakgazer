@@ -21,6 +21,8 @@ import {
 export const mardi: Journey = {
   slug: "mardi-himal",
   name: "Mardi Himal",
+  subtitle:
+    "Six days on a high ridge below Machhapuchhre. Quieter than Base Camp, and shorter.",
   region: "Annapurna (ACAP)",
   startCity: "Pokhara",
   endCity: "Pokhara",
@@ -36,6 +38,7 @@ export const mardi: Journey = {
       "Possible in good conditions, but it is the guide's decision on the morning — not a promise.",
   },
 
+  voice: "partner",
   difficulty: 2,
   difficultyNote:
     "Four consecutive days of 4–7 hours. Steep forest ascent on day 2. One exposed ridge section. No technical ground.",
