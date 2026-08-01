@@ -12,6 +12,7 @@ import AddOnsSection from "@/components/journey/AddOnsSection";
 import FailureScenarios from "@/components/journey/FailureScenarios";
 import JourneyInvitation from "@/components/journey/JourneyInvitation";
 import VoiceBadge from "@/components/journey/VoiceBadge";
+import JourneyGallery from "@/components/journey/JourneyGallery";
 import OpeningSoon from "@/components/journey/OpeningSoon";
 import WhatsAppButton from "@/components/inquiry/WhatsAppButton";
 import Footer from "@/components/layout/Footer";
@@ -77,6 +78,11 @@ export default async function JourneyPage({
   const hasPrice = journey.price.groupTiers.length > 0;
   const hasIncluded = journey.included.length > 0;
   const hasFailures = journey.failureScenarios.length > 0;
+  // Roles already shown beside a day or as a full-bleed moment; the gallery
+  // takes what is left rather than repeating them.
+  const usedRoles = journey.itinerary.flatMap((d) =>
+    [d.image, d.bleed?.role].filter((r) => r !== undefined),
+  );
 
   return (
     <>
@@ -177,6 +183,16 @@ export default async function JourneyPage({
             </div>
           </section>
         )}
+
+        {/* 5b — frames that belong to the route rather than one day */}
+        <section className={`${SECTION} border-b border-[#e6dfd6]/8`}>
+          <div className={INNER}>
+            <JourneyGallery
+              journey={journey}
+              exclude={usedRoles}
+            />
+          </div>
+        </section>
 
         {/* 6 — the unflattering truths */}
         <section className={`${SECTION} border-b border-[#e6dfd6]/8`}>

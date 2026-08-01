@@ -1,35 +1,68 @@
-import { npr, PENDING, type Journey } from "@/lib/schema";
+import { npr, PENDING, type Journey, type JourneyImage } from "@/lib/schema";
 
 /**
- * Panchakunda (North ABC) — the rare route, and the only one besides ABC Short
- * the founder has walked himself.
+ * Panchakunda & North Annapurna Base Camp — a real route we run, published.
  *
- * NOTHING about this route appears in packages.md. No itinerary, no altitudes,
- * no walking hours, no cost. What exists is the founder's own experience and
- * his photographs.
+ * The day-by-day, the altitudes and the highest point are supplied and verified
+ * by the founder. They are transcribed exactly and must not be altered.
  *
- * The itinerary is therefore EMPTY rather than filled — the page renders an
- * honest "day-by-day coming, message us for the full plan" instead. This is
- * the route walked mainly by experienced trekkers, which is exactly the
- * audience that would recognise a fabricated stage list on sight.
+ * Voice is agency, second person: the page is about the trek and what the
+ * traveller gets, not a founder's account of walking it. The founder-walked
+ * fact still stands and is stated as a fact by the voice badge — it just does
+ * not narrate the page.
+ *
+ * STILL PENDING (rendering as "to be confirmed", never guessed):
+ * - Tatopani's altitude, and which Tatopani (Myagdi/Beni side).
+ * - Per-day walking hours and distances.
+ * - The cost model. No partner rate for this route yet, so no tier table.
+ *
+ * SPELLING: "Sandi Kharka" is used throughout. The founder is to confirm it
+ * against "Sadhi Kharka" — whichever is right, it must be one of them everywhere.
+ *
+ * PHOTOGRAPHY: the founder's own, October 2025. Two source frames are
+ * deliberately excluded — the founder's own portrait, and an identifiable
+ * customer at a suspension bridge whose consent has not been confirmed.
  */
+
+const P = "/images/journeys/panchakunda";
+
+const images: JourneyImage[] = [
+  { role: "hero", src: `${P}/hero.jpg`, alt: "The turquoise Panchakunda lake below the glaciated north wall of Annapurna, with a group of trekkers on the shore for scale", place: "Panchakunda", month: "October", year: 2025, width: 2560, height: 1707 },
+  { role: "peak", src: `${P}/annapurna-i.jpg`, alt: "The snow-covered north face of Annapurna I rising behind a dark ridge", place: "Annapurna I, from the North Annapurna approach", month: "October", year: 2025, width: 2560, height: 2183 },
+  { role: "lake", src: `${P}/panchakunda-lake-second.jpg`, alt: "A second view across the Panchakunda glacial lakes", place: "Panchakunda", month: "October", year: 2025, width: 2000, height: 1333 },
+  { role: "trailhead", src: `${P}/humkhola-trailhead.jpg`, alt: "The roadhead at Humkhola where the walking begins", place: "Humkhola, 2,883m", month: "October", year: 2025, width: 1400, height: 1859 },
+  { role: "waterfall", src: `${P}/phutphute-jharna.jpg`, alt: "Phutphute Jharna waterfall beside the trail", place: "Phutphute Jharna", month: "October", year: 2025, width: 1400, height: 2185 },
+  { role: "bridge", src: `${P}/suspension-bridge.jpg`, alt: "A suspension bridge over the Miristi Khola", place: "Miristi Khola valley", month: "October", year: 2025, width: 1080, height: 1414 },
+  { role: "avalanche", src: `${P}/avalanche.jpg`, alt: "An avalanche running down the flank of Annapurna", place: "Annapurna, from the trail", month: "October", year: 2025, width: 1400, height: 2100 },
+  { role: "wildlife", src: `${P}/trail-dog.jpg`, alt: "A dog that followed the group along the trail", place: "Miristi Khola valley", month: "October", year: 2025, width: 1400, height: 2100 },
+  { role: "trailValley", src: `${P}/valley-view.jpg`, alt: "The valley opening out beyond the trail", place: "Miristi Khola valley", month: "October", year: 2025, width: 1400, height: 2100 },
+  { role: "ridge", src: `${P}/ridge.jpg`, alt: "A hillside on the approach to the lakes", place: "North Annapurna approach", month: "October", year: 2025, width: 1400, height: 2234 },
+];
+
 export const panchakunda: Journey = {
   slug: "panchakunda-north-abc",
-  name: "Panchakunda (North ABC)",
+  name: "Panchakunda & North Annapurna Base Camp",
   subtitle:
-    "North of the Annapurna Base Camp trail, and a fraction of its traffic. I have walked this one.",
-  region: "Annapurna (ACAP)",
+    "Five days to a cluster of glacial lakes at 4,050m, on the quiet side of the massif.",
+  region: "Annapurna (ACAP) — Miristi Khola",
   startCity: "Pokhara",
   endCity: "Pokhara",
-  days: PENDING,
-  nights: PENDING,
-  trekDays: PENDING,
-  maxAltitudeM: PENDING,
+  days: 5,
+  nights: 4,
+  trekDays: 3,
+  maxAltitudeM: 4190,
+
+  optionalHighPoint: {
+    name: "Panchakunda lakes",
+    altitudeM: 4050,
+    condition:
+      "Where you sleep on night three. The base camp above is reached the following morning.",
+  },
 
   voice: "founder",
-  difficulty: 3,
+  difficulty: 4,
   difficultyNote:
-    "Graded provisionally against the routes around it. The exact profile is being written up from the founder's own notes rather than copied from anywhere.",
+    "Remote, with a fast ascent and basic facilities. Three walking days, from the Humkhola roadhead at 2,883m to sleeping at 4,050m, with the base camp at 4,190m on the crux day. Few other trekkers, and rescue is further away than on the popular trails.",
 
   bestMonths: ["October", "November", "March", "April"],
 
@@ -45,47 +78,168 @@ export const panchakunda: Journey = {
     },
   ],
 
-  // Deliberately empty. See the note above — an invented stage list here would
-  // be spotted immediately by the people this route attracts.
-  itinerary: [],
+  itinerary: [
+    {
+      day: 1,
+      title: "Pokhara → Tatopani",
+      from: "Pokhara",
+      to: "Tatopani",
+      sleepAltitudeM: PENDING,
+      walkingHours: null,
+      transport: "jeep",
+      terrain: "A road day. The walking begins tomorrow.",
+      honestNote:
+        "Nothing but the drive. Tatopani's altitude is still to be confirmed, and so is which Tatopani — there is more than one in Nepal.",
+    },
+    {
+      day: 2,
+      title: "Tatopani → Humkhola → Phutphute Jharna → Gupha Phat",
+      from: "Tatopani",
+      to: "Gupha Phat",
+      sleepAltitudeM: 3350,
+      walkingHours: PENDING,
+      transport: "jeep",
+      image: "trailhead",
+      terrain:
+        "Two hours by jeep to the Humkhola roadhead at 2,883m, where the trek starts. Past the Phutphute Jharna waterfall and on up to Gupha Phat.",
+      honestNote:
+        "One of the two long days. You gain nearly 500m to sleep at 3,350m, having started the morning in a vehicle.",
+    },
+    {
+      day: 3,
+      title: "Gupha Phat → Panchakunda",
+      from: "Gupha Phat",
+      to: "Panchakunda",
+      sleepAltitudeM: 4050,
+      walkingHours: PENDING,
+      ascentM: 700,
+      image: "waterfall",
+      bleed: {
+        role: "lake",
+        line: "The lakes sit at 4,050m, directly under the north face.",
+        sub: "You sleep here.",
+      },
+      honestNote:
+        "A 700m gain to sleep at 4,050m. The ascent across these two days is fast and altitude affects people here — the guide sets the pace and watches for it.",
+    },
+    {
+      day: 4,
+      title:
+        "Panchakunda → North Annapurna Base Camp → descend to Sandi Kharka",
+      from: "Panchakunda",
+      to: "Sandi Kharka",
+      sleepAltitudeM: 3220,
+      highPointM: 4190,
+      walkingHours: PENDING,
+      isHardestDay: true,
+      image: "avalanche",
+      bleed: {
+        role: "peak",
+        line: "The north face of Annapurna I, from the base camp at 4,190m.",
+        sub: "The high point, and the morning the trek is for.",
+      },
+      honestNote:
+        "The crux, and longer than most companies admit. An early climb to the base camp at 4,190m, then a descent of nearly 1,000m all the way to Sandi Kharka at 3,220m on tired legs. Trekking poles matter. Know this day is coming before you book.",
+    },
+    {
+      day: 5,
+      title: "Sandi Kharka → Tatopani → Pokhara",
+      from: "Sandi Kharka",
+      to: "Pokhara",
+      sleepAltitudeM: PENDING,
+      walkingHours: PENDING,
+      transport: "jeep",
+      image: "trailValley",
+      honestNote:
+        "Down to Tatopani and back on the road to Pokhara. The trek ends here.",
+    },
+  ],
 
   honestParagraph:
-    "I walked this one myself, and it is the reason this company exists. Panchakunda sits north of the Annapurna Base Camp trail and carries a fraction of its traffic — most days you will see nobody. It is not a first trek and I would not sell it as one. The full day-by-day is being written from my own notes rather than copied from another operator, so it is not on this page yet. Message me and I will talk you through the whole route.",
+    "Panchakunda is a cluster of high glacial lakes at 4,050m below the north face of Annapurna I, reached through the Miristi Khola valley — the quiet side of the massif, not the standard Annapurna Base Camp trail everyone walks. Very few trekkers come here. You are more likely to see blue sheep than another group. It is a hard trek and a short one: three walking days, a fast climb from the Humkhola roadhead at 2,883m to sleeping at 4,050m, and the north base camp at 4,190m on the crux day. Lodges are basic and sparse, and the route is genuinely remote — rescue is further away here than on the popular trails. This is not a first Himalayan trek, and it is not for anyone who has not spent a night above 3,500m. What you get for it is the Annapurna almost nobody sees: the lakes at first light with Annapurna I directly above, and a trail you will often have to yourself.",
 
   honestNotes: [
-    "This is a rare route. Lodging and resupply are thinner than on the Annapurna Base Camp trail, and that is the trade for the quiet.",
-    "The day-by-day on this page is incomplete. We would rather show you a gap than fill it with somebody else's itinerary.",
-    "Best walked by people who have already done a multi-day trek at altitude.",
+    "Day 4 is the crux and it is longer than most companies admit: up to North Annapurna Base Camp at 4,190m, then a full descent to Sandi Kharka at 3,220m — nearly 1,000m down after the high point, on tired legs. Trekking poles matter. Know this day is coming before you book.",
+    "The ascent is fast: 2,883m to sleeping at 4,050m in two days. Altitude affects people here — the guide watches for it and sets the pace.",
+    "Lodges are basic and sparse. This is not a teahouse trek in the Annapurna Base Camp sense.",
+    "It is remote. Rescue is further away than on the popular trails, and insurance with helicopter cover is not optional on this route.",
+    "There is no dedicated acclimatisation day in the standard five-day plan. Ask about an extra night at Gupha Phat or Panchakunda if you want a gentler profile.",
   ],
 
   notForYou: [
-    "This is your first trek at altitude.",
-    "You need a fixed, published day-by-day before you commit — ours is still being written.",
-    "You want teahouses and resupply at the density of the main Annapurna trail.",
+    "You have never spent a night above 3,500m.",
+    "You need lodges with hot showers and wifi — they mostly are not here.",
+    "You want company on the trail. You likely will not have it.",
+    "You are not comfortable being a long way from a road for several days.",
   ],
 
   failureScenarios: [
     {
-      trigger: "Weather closes the high sections.",
+      trigger: "Altitude symptoms at Panchakunda (4,050m) or on the day-4 climb.",
       likelihood:
-        "To be confirmed against the founder's own record of the route.",
+        "A real risk on this profile. Sleeping altitude goes from 2,883m at the roadhead to 4,050m in two days, with no acclimatisation day built in.",
       whatWeDo:
-        "The guide reroutes or turns the group. On a route this quiet, turning early is the normal call rather than the exceptional one.",
+        "The guide monitors daily and calls the turnaround. Descent begins immediately, and on this route the descent to Sandi Kharka is substantial.",
+      whoPays:
+        "Your insurance covers evacuation. Costs arising from an early descent are not refundable.",
+    },
+    {
+      trigger: "Weather closes the approach above Gupha Phat.",
+      likelihood: "Occasional at the edges of both seasons.",
+      whatWeDo:
+        "The guide turns the group. On a route this quiet and this remote, turning early is the normal call rather than the exceptional one.",
       whoPays:
         "TODO — the disruption policy has not yet been agreed with the partner.",
     },
+    {
+      trigger: "A medical event a long way from the road.",
+      likelihood:
+        "Uncommon, but the consequence is heavier here than on the popular trails.",
+      whatWeDo:
+        "Descend with the guide where possible; helicopter evacuation through your insurer where it is not. We verify your policy carries evacuation cover before departure.",
+      whoPays:
+        "Your insurer. We take no commission on evacuation flights — being confirmed in writing with our partner.",
+    },
   ],
 
-  included: [],
-  excluded: [],
+  included: [
+    "Pokhara ⇄ Tatopani road transport",
+    "Jeep to and from the Humkhola roadhead",
+    "Licensed guide throughout, and guide insurance",
+    "ACAP permit",
+    "Lodge accommodation on trek",
+    "All meals on trek — breakfast, lunch and dinner",
+  ],
 
-  // No cost model exists for this route yet. Rather than invent a range, the
-  // price carries a single indicative figure the page renders as unconfirmed.
+  excluded: [
+    "Travel to and from Nepal",
+    "Travel insurance with helicopter evacuation cover — mandatory on this route, verified before departure",
+    "Personal equipment, including trekking poles",
+    "Hot showers, wifi and device charging where they exist at all",
+    "Bottled or boiled water, drinks and snacks",
+    "Tips and donations",
+    "Costs arising from early descent, weather delay or route change",
+  ],
+
+  safety: {
+    altitudeProtocol:
+      "Daily checks from Gupha Phat upward. The gain to 4,050m across two days is fast and there is no acclimatisation day in the standard plan — ask for an extra night if you want a gentler profile. Turnaround is the guide's decision, applied against written criteria, and descent is the treatment.",
+    evacuationPolicy:
+      "This route is more remote than the popular trails and rescue is further away. Travel insurance carrying helicopter evacuation cover is mandatory and we verify the policy before you fly.",
+    weatherPolicy:
+      "The guide reroutes or turns the group. What a lost day costs and who bears it is set by the disruption policy, which is not yet agreed with our partner.",
+    noCommission: "commitment",
+  },
+
+  // No partner rate for this route yet. Rather than invent a tier table, the
+  // page renders an honest "not costed yet" panel and a way to ask.
   price: {
     min: npr(0),
     max: npr(0),
     variables: [
       "Group size — the per-person cost falls sharply as the group grows.",
+      "Whether you add an acclimatisation night at Gupha Phat or Panchakunda.",
+      "Season — October and April rates run higher.",
       "Final quote depends on season, group size and operations.",
     ],
     groupTiers: [],
@@ -94,31 +248,51 @@ export const panchakunda: Journey = {
 
   costBreakdown: [],
   guide: { slug: "guide-one" },
-  images: [],
+  images,
 
   faqs: [
     {
-      question: "Why is there no day-by-day on this page?",
+      question: "How hard is this compared with Annapurna Base Camp?",
       answer:
-        "Because we have not written ours yet, and we will not paste somebody else's. Message us and we will take you through the route stage by stage.",
+        "Harder, and shorter. Three walking days rather than five, but a faster ascent, basic lodges, and a crux day that climbs to 4,190m and descends nearly 1,000m afterwards.",
     },
     {
-      question: "Has anyone at this company actually walked it?",
+      question: "Will we see other trekkers?",
       answer:
-        "Yes. The founder has, and the photographs on this page are his. That is true of this route and Annapurna Base Camp — Short, and we do not claim it anywhere else.",
+        "Rarely. That is the point of the route, and also the reason rescue is further away.",
+    },
+    {
+      question: "Is there an acclimatisation day?",
+      answer:
+        "Not in the standard five-day plan. Ask for an extra night at Gupha Phat or Panchakunda and we will price it — the profile is noticeably gentler with one.",
+    },
+    {
+      question: "What does it cost?",
+      answer:
+        "We have not costed this route with our partner yet, and we will not put a number on the page before we have. Message us and we will quote it for your group size and dates.",
+    },
+    {
+      question: "Do Indian nationals need a visa?",
+      answer: "No. Indian nationals enter Nepal without a visa.",
+    },
+    {
+      question: "What permits are needed?",
+      answer:
+        "ACAP only. NPR 1,000 for Indian and SAARC nationals, NPR 3,000 for other foreign nationals.",
     },
   ],
 
   seo: {
     title:
-      "Panchakunda (North ABC) Trek — A Quiet Annapurna Route | Indicative Cost",
+      "Panchakunda & North Annapurna Base Camp — 5 Days from Pokhara | Indicative Cost",
     description:
-      "Panchakunda, north of the Annapurna Base Camp trail: a rare route walked by our founder, with a fraction of the traffic. Detail and cost on request.",
+      "Five days to the Panchakunda glacial lakes at 4,050m and North Annapurna Base Camp at 4,190m, through the Miristi Khola valley. Remote, hard, and rarely walked.",
     keywords: [
       "panchakunda trek",
-      "north annapurna base camp",
-      "quiet annapurna trek",
-      "rare trek nepal from india",
+      "north annapurna base camp trek",
+      "miristi khola trek",
+      "quiet annapurna trek from india",
+      "panchakunda lake nepal",
     ],
   },
 
