@@ -86,24 +86,6 @@ export default function KeyFacts({ journey }: { journey: Journey }) {
         {journey.difficultyNote}
       </p>
 
-      <dl className="mt-6 space-y-2">
-        {journey.permits.map((permit) => (
-          <div
-            key={permit.name}
-            className="flex flex-wrap items-baseline gap-x-3 text-[0.875rem]"
-          >
-            <dt className="text-[#e6dfd6]/50">{permit.fullName}</dt>
-            <dd className="text-[#f0ece5] tabular-nums">
-              NPR {permit.costSAARC.toLocaleString("en-IN")} for Indian and
-              SAARC nationals
-              <span className="text-[#e6dfd6]/40">
-                {" "}
-                · NPR {permit.costForeign.toLocaleString("en-IN")} otherwise
-              </span>
-            </dd>
-          </div>
-        ))}
-      </dl>
     </div>
   );
 }

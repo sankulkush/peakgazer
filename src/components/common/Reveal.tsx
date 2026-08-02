@@ -38,16 +38,16 @@ export default function Reveal({
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         gsap.fromTo(
           ref.current,
-          { opacity: 0, y: 28 },
+          { opacity: 0, y: 14 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.9,
+            duration: 0.6,
             delay,
             ease: "power3.out",
             scrollTrigger: {
               trigger: ref.current,
-              start: "top 85%",
+              start: "top 92%",
               once: true,
             },
           },

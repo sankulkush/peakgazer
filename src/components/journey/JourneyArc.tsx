@@ -23,7 +23,7 @@ export default function JourneyArc({ journey }: { journey: Journey }) {
         return (
           <div key={day.day}>
             <section className="border-b border-[#e6dfd6]/8 px-6 py-8 sm:px-10 sm:py-10 lg:px-16">
-              <div className="mx-auto grid max-w-6xl gap-5 lg:grid-cols-12 lg:gap-10">
+              <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-12 lg:gap-10">
                 <div className="lg:col-span-2">
                   <p className="font-display text-[0.8rem] font-semibold tracking-[0.08em] text-[#e9c9a8] uppercase">
                     Day {day.day}
@@ -69,14 +69,16 @@ export default function JourneyArc({ journey }: { journey: Journey }) {
                   </p>
                 </div>
 
+                {/* Upright column. The photograph keeps its own ratio and is
+                    never cropped — most of these are phone verticals. */}
                 {day.image && (
-                  <figure className="lg:col-span-4">
+                  <figure className="lg:col-span-4 lg:max-w-[19rem]">
                     <ImageSlot
                       journey={journey}
                       role={day.image}
                       label={`Day ${day.day} — ${day.to}`}
-                      ratio="4 / 3"
-                      sizes="(max-width: 1024px) 100vw, 30vw"
+                      ratio="4 / 5"
+                      sizes="(max-width: 640px) 88vw, (max-width: 1024px) 45vw, 19rem"
                       className="rounded-sm"
                     />
                     <SlotCaption

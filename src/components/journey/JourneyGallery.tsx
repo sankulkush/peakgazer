@@ -42,7 +42,8 @@ export default function JourneyGallery({
         and when.
       </p>
 
-      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Rows of uprights. Each frame renders at its own ratio. */}
+      <div className="mt-10 grid gap-6 grid-cols-2 lg:grid-cols-3">
         {roles.map((role) => (
           <figure key={role}>
             <ImageSlot
@@ -50,7 +51,7 @@ export default function JourneyGallery({
               role={role}
               label={role}
               ratio="4 / 5"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 30vw"
+              sizes="(max-width: 640px) 46vw, (max-width: 1024px) 46vw, 30vw"
               className="rounded-sm"
             />
             <SlotCaption journey={journey} role={role} className="mt-2" />

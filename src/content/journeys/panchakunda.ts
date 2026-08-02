@@ -62,7 +62,7 @@ export const panchakunda: Journey = {
   voice: "founder",
   difficulty: 4,
   difficultyNote:
-    "Remote, with a fast ascent and basic facilities. Three walking days, from the Humkhola roadhead at 2,883m to sleeping at 4,050m, with the base camp at 4,190m on the crux day. Few other trekkers, and rescue is further away than on the popular trails.",
+    "The crux is day 4: up to 4,190m, then nearly 1,000m of descent to Sandi Kharka.",
 
   bestMonths: ["October", "November", "March", "April"],
 
@@ -156,13 +156,11 @@ export const panchakunda: Journey = {
   ],
 
   honestParagraph:
-    "Panchakunda is a cluster of high glacial lakes at 4,050m below the north face of Annapurna I, reached through the Miristi Khola valley — the quiet side of the massif, not the standard Annapurna Base Camp trail everyone walks. Very few trekkers come here. You are more likely to see blue sheep than another group. It is a hard trek and a short one: three walking days, a fast climb from the Humkhola roadhead at 2,883m to sleeping at 4,050m, and the north base camp at 4,190m on the crux day. Lodges are basic and sparse, and the route is genuinely remote — rescue is further away here than on the popular trails. This is not a first Himalayan trek, and it is not for anyone who has not spent a night above 3,500m. What you get for it is the Annapurna almost nobody sees: the lakes at first light with Annapurna I directly above, and a trail you will often have to yourself.",
+    "Remote, with a fast ascent and basic facilities. Three walking days, from the Humkhola roadhead at 2,883m to sleeping at 4,050m, with the base camp at 4,190m on the crux day. Few other trekkers, and rescue is further away than on the popular trails. What you get for it is the Annapurna almost nobody sees: a cluster of glacial lakes below the north face of Annapurna I, reached through the Miristi Khola — the quiet side of the massif, not the trail everyone walks. You are more likely to see blue sheep than another group.",
 
   honestNotes: [
     "Day 4 is the crux and it is longer than most companies admit: up to North Annapurna Base Camp at 4,190m, then a full descent to Sandi Kharka at 3,220m — nearly 1,000m down after the high point, on tired legs. Trekking poles matter. Know this day is coming before you book.",
-    "The ascent is fast: 2,883m to sleeping at 4,050m in two days. Altitude affects people here — the guide watches for it and sets the pace.",
     "Lodges are basic and sparse. This is not a teahouse trek in the Annapurna Base Camp sense.",
-    "It is remote. Rescue is further away than on the popular trails, and insurance with helicopter cover is not optional on this route.",
     "There is no dedicated acclimatisation day in the standard five-day plan. Ask about an extra night at Gupha Phat or Panchakunda if you want a gentler profile.",
   ],
 
@@ -225,7 +223,7 @@ export const panchakunda: Journey = {
     altitudeProtocol:
       "Daily checks from Gupha Phat upward. The gain to 4,050m across two days is fast and there is no acclimatisation day in the standard plan — ask for an extra night if you want a gentler profile. Turnaround is the guide's decision, applied against written criteria, and descent is the treatment.",
     evacuationPolicy:
-      "This route is more remote than the popular trails and rescue is further away. Travel insurance carrying helicopter evacuation cover is mandatory and we verify the policy before you fly.",
+      "Travel insurance carrying helicopter evacuation cover is mandatory on this route and we verify the policy before you fly. Evacuation is arranged through your insurer, and we take no commission on the flight.",
     weatherPolicy:
       "The guide reroutes or turns the group. What a lost day costs and who bears it is set by the disruption policy, which is not yet agreed with our partner.",
     noCommission: "commitment",
@@ -259,7 +257,7 @@ export const panchakunda: Journey = {
     {
       question: "Will we see other trekkers?",
       answer:
-        "Rarely. That is the point of the route, and also the reason rescue is further away.",
+        "Rarely. Most days you will see nobody, which is the point of the route.",
     },
     {
       question: "Is there an acclimatisation day?",

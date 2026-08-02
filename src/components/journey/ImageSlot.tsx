@@ -1,16 +1,17 @@
 import Image from "next/image";
 import PlaceholderImage from "@/components/common/PlaceholderImage";
+import { findImage, imageShape, naturalRatio } from "@/lib/images";
 import type { ImageRole, Journey } from "@/lib/schema";
 
 type ImageSlotProps = {
   journey: Journey;
   role: ImageRole;
-  /** Shown on the placeholder, and used to describe what belongs here. */
   label: string;
-  /** Ignored when `fill` is set — the parent decides the box instead. */
+  /** Ratio for the PLACEHOLDER only. A real photograph uses its own. */
   ratio?: string;
   sizes: string;
   priority?: boolean;
+  /** Full-bleed cover. Only ever honoured for a genuinely wide photograph. */
   fill?: boolean;
   className?: string;
 };
@@ -18,14 +19,14 @@ type ImageSlotProps = {
 /**
  * A named slot on the page.
  *
- * The template asks for a role and the content file answers. Until it does, the
- * slot renders a labelled placeholder at the exact ratio the photograph will
- * occupy, so dropping the frame in cannot shift the layout around it.
+ * A real photograph always renders at its own aspect ratio and is never
+ * cropped — the container takes the picture's shape. `fill` is the single
+ * exception, and `ImageMoment` only asks for it when the frame is wide enough
+ * to survive it.
  *
- * Filling a slot is a content edit, not a code edit: add an entry to the
- * journey's `images` with this role. It has to be a content entry rather than a
- * bare file drop because every photograph carries a place and a month, and only
- * the content file knows those.
+ * Filling a slot is a content edit: add an entry to the journey's `images`
+ * with this role. It has to be a content entry rather than a bare file drop
+ * because every photograph carries a place and a month.
  */
 export default function ImageSlot({
   journey,
@@ -37,7 +38,7 @@ export default function ImageSlot({
   fill = false,
   className = "",
 }: ImageSlotProps) {
-  const image = journey.images.find((i) => i.role === role);
+  const image = findImage(journey, role);
 
   if (!image) {
     return fill ? (
@@ -49,7 +50,8 @@ export default function ImageSlot({
     );
   }
 
-  if (fill) {
+  // Cover-fill is only safe on a wide frame. Anything else renders whole.
+  if (fill && imageShape(image) === "wide") {
     return (
       <Image
         src={image.src}
@@ -69,15 +71,16 @@ export default function ImageSlot({
       alt={image.alt}
       width={image.width}
       height={image.height}
+      priority={priority}
       quality={82}
       sizes={sizes}
-      className={`w-full ${className}`}
-      style={{ aspectRatio: ratio, objectFit: "cover" }}
+      className={`h-auto w-full ${className}`}
+      style={{ aspectRatio: naturalRatio(image) }}
     />
   );
 }
 
-/** Place and month, per the caption rule. Renders nothing until both exist. */
+/** Place and month, per the caption rule. */
 export function SlotCaption({
   journey,
   role,
@@ -87,7 +90,7 @@ export function SlotCaption({
   role: ImageRole;
   className?: string;
 }) {
-  const image = journey.images.find((i) => i.role === role);
+  const image = findImage(journey, role);
   if (!image) {
     return (
       <p className={`text-[0.72rem] text-[#e6dfd6]/35 ${className}`}>
