@@ -72,13 +72,13 @@ export default function JourneyArc({ journey }: { journey: Journey }) {
                 {/* Upright column. The photograph keeps its own ratio and is
                     never cropped — most of these are phone verticals. */}
                 {day.image && (
-                  <figure className="lg:col-span-4 lg:max-w-[19rem]">
+                  <figure className="max-w-[13rem] sm:max-w-[14rem] lg:col-span-4 lg:max-w-[13.5rem]">
                     <ImageSlot
                       journey={journey}
                       role={day.image}
                       label={`Day ${day.day} — ${day.to}`}
                       ratio="4 / 5"
-                      sizes="(max-width: 640px) 88vw, (max-width: 1024px) 45vw, 19rem"
+                      sizes="(max-width: 640px) 13rem, (max-width: 1024px) 14rem, 13.5rem"
                       className="rounded-sm"
                     />
                     <SlotCaption

@@ -103,9 +103,11 @@ export default async function JourneyPage({
               {journey.honestParagraph}
             </p>
 
-            <div className="mt-8">
-              <VoiceBadge journey={journey} />
-            </div>
+            {journey.voice === "partner" && (
+              <div className="mt-8">
+                <VoiceBadge journey={journey} />
+              </div>
+            )}
           </div>
         </section>
 

@@ -27,7 +27,7 @@ import { npr, PENDING, type Journey, type JourneyImage } from "@/lib/schema";
 const P = "/images/journeys/panchakunda";
 
 const images: JourneyImage[] = [
-  { role: "hero", src: `${P}/hero.jpg`, alt: "The turquoise Panchakunda lake below the glaciated north wall of Annapurna, with a group of trekkers on the shore for scale", place: "Panchakunda", month: "October", year: 2025, width: 2560, height: 1707 },
+  { role: "hero", src: `${P}/hero.jpg`, alt: "The turquoise Panchakunda lake below the glaciated north face of Annapurna, with trekkers on the rocky shore at the right for scale", place: "Panchakunda", month: "October", year: 2025, width: 2560, height: 1707 },
   { role: "peak", src: `${P}/annapurna-i.jpg`, alt: "The snow-covered north face of Annapurna I rising behind a dark ridge", place: "Annapurna I, from the North Annapurna approach", month: "October", year: 2025, width: 2560, height: 2183 },
   { role: "lake", src: `${P}/panchakunda-lake-second.jpg`, alt: "A second view across the Panchakunda glacial lakes", place: "Panchakunda", month: "October", year: 2025, width: 2000, height: 1333 },
   { role: "trailhead", src: `${P}/humkhola-trailhead.jpg`, alt: "The roadhead at Humkhola where the walking begins", place: "Humkhola, 2,883m", month: "October", year: 2025, width: 1400, height: 1859 },
@@ -156,7 +156,7 @@ export const panchakunda: Journey = {
   ],
 
   honestParagraph:
-    "Remote, with a fast ascent and basic facilities. Three walking days, from the Humkhola roadhead at 2,883m to sleeping at 4,050m, with the base camp at 4,190m on the crux day. Few other trekkers, and rescue is further away than on the popular trails. What you get for it is the Annapurna almost nobody sees: a cluster of glacial lakes below the north face of Annapurna I, reached through the Miristi Khola — the quiet side of the massif, not the trail everyone walks. You are more likely to see blue sheep than another group.",
+    "Remote, with a fast ascent and basic facilities: three walking days from the Humkhola roadhead at 2,883m to the lakes at 4,050m, and the base camp at 4,190m on the crux day. The quiet side of Annapurna, reached through the Miristi Khola — few other trekkers, and you're more likely to see blue sheep than another group. Rescue is further away here than on the popular trails.",
 
   honestNotes: [
     "Day 4 is the crux and it is longer than most companies admit: up to North Annapurna Base Camp at 4,190m, then a full descent to Sandi Kharka at 3,220m — nearly 1,000m down after the high point, on tired legs. Trekking poles matter. Know this day is coming before you book.",
