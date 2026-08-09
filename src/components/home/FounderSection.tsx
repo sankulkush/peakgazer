@@ -28,10 +28,20 @@ export default function FounderSection() {
             sizes="(max-width: 1024px) 88vw, 22rem"
             className="h-auto w-full max-w-[22rem] rounded-sm"
           />
-          {/* Named, because the copy beside it is about the partner agency and
-              an unlabelled face there reads as one of their guides. */}
+          {/* This caption has to survive two misreads, because the copy beside
+              it is about the partner agency.
+
+              Unlabelled, the face reads as one of their guides. Labelled only
+              "our founder", it reads as the founder guiding your trek — the
+              operator/brand confusion the rest of the site works to avoid. So
+              it names the person AND the separation.
+
+              Panchakunda is one route the founder has actually walked, which
+              is a different claim from the every-route one this section was
+              rewritten to remove. The date is panchakunda.ts's, not a guess. */}
           <p className="mt-3 text-[0.75rem] text-[#e6dfd6]/45">
-            Our founder at Panchakunda, October 2025
+            Our founder at Panchakunda, October 2025 — planning the trips, not
+            guiding them
           </p>
         </Reveal>
 
