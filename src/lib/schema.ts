@@ -97,6 +97,12 @@ export interface ItineraryDay {
   to: string;
   /** PENDING where the altitude is not in any source document. */
   sleepAltitudeM: MaybeNumber;
+  /**
+   * Renders altitudes with a leading `~`. Set where the operator's figure and
+   * published sources disagree — we use the operator's, but we do not present
+   * a contested number as exact.
+   */
+  approxAltitude?: boolean;
   /** Set only when the day crosses higher than it sleeps. */
   highPointM?: MaybeNumber;
   /** `null` means genuinely no walking; PENDING means we have not confirmed it. */

@@ -13,10 +13,9 @@ import FailureScenarios from "@/components/journey/FailureScenarios";
 import JourneyInvitation from "@/components/journey/JourneyInvitation";
 import VoiceBadge from "@/components/journey/VoiceBadge";
 import JourneyGallery from "@/components/journey/JourneyGallery";
-import OpeningSoon from "@/components/journey/OpeningSoon";
 import WhatsAppButton from "@/components/inquiry/WhatsAppButton";
 import Footer from "@/components/layout/Footer";
-import { getAllJourneys, getJourney, getPublishedJourneys } from "@/lib/content";
+import { getJourney, getPublishedJourneys } from "@/lib/content";
 
 /**
  * The journey template. Renders every trek from the content layer.
@@ -31,17 +30,14 @@ import { getAllJourneys, getJourney, getPublishedJourneys } from "@/lib/content"
 export const dynamicParams = false;
 
 /**
- * Draft journeys are prerendered in development so they can be reviewed, and
- * excluded from the production build — CLAUDE.md keeps drafts out of the index,
- * the sitemap and generateStaticParams. With `dynamicParams = false` a draft
- * slug 404s in production rather than leaking an unconfirmed price.
+ * Only built journeys are prerendered. With `dynamicParams = false`, a draft
+ * slug 404s in every environment — deliberate, and how the founder tracks what
+ * is built. A homepage card pointing at an unbuilt route therefore 404s; the
+ * build itself is unaffected, because nothing resolves those slugs at build
+ * time.
  */
 export function generateStaticParams() {
-  const journeys =
-    process.env.NODE_ENV === "development"
-      ? getAllJourneys()
-      : getPublishedJourneys();
-  return journeys.map((journey) => ({ slug: journey.slug }));
+  return getPublishedJourneys().map((journey) => ({ slug: journey.slug }));
 }
 
 export async function generateMetadata({
@@ -93,12 +89,6 @@ export default async function JourneyPage({
         {/* 2 — the promise, in whichever voice this route is entitled to */}
         <section className={`${SECTION} border-b border-[#e6dfd6]/8`}>
           <div className="mx-auto max-w-3xl">
-            {journey.status === "draft" && (
-              <div className="mb-10">
-                <OpeningSoon journey={journey} />
-              </div>
-            )}
-
             <p className="font-display text-[clamp(1.2rem,2.4vw,1.65rem)] leading-[1.5] font-medium tracking-[-0.01em] text-balance text-[#f0ece5]">
               {journey.honestParagraph}
             </p>

@@ -41,7 +41,20 @@ export default function JourneyArc({ journey }: { journey: Journey }) {
                   </h3>
 
                   <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.85rem] text-[#e6dfd6]/50 tabular-nums">
-                    <span>Sleep {altitude(day.sleepAltitudeM)}</span>
+                    <span>
+                      Sleep {altitude(day.sleepAltitudeM, day.approxAltitude)}
+                    </span>
+                    {day.highPointM !== undefined && (
+                      <>
+                        <span aria-hidden="true" className="text-[#e6dfd6]/25">
+                          ·
+                        </span>
+                        <span className="text-[#e9c9a8]/85">
+                          high point{" "}
+                          {altitude(day.highPointM, day.approxAltitude)}
+                        </span>
+                      </>
+                    )}
                     <span aria-hidden="true" className="text-[#e6dfd6]/25">
                       ·
                     </span>

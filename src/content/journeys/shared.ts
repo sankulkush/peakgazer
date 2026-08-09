@@ -13,6 +13,13 @@ import type { Faq } from "@/lib/schema";
  * 9-day ABC. Confirm which of these apply to the 7-day short version and to
  * Mardi specifically before any of this is published.
  */
+/**
+ * Mandatory on every journey and never included. Guide insurance is ours;
+ * the traveller's is theirs, and we check it before departure.
+ */
+export const INSURANCE_EXCLUSION =
+  "Your travel insurance, which must carry helicopter evacuation cover — mandatory, your responsibility to arrange, and verified by us before departure";
+
 export const ANNAPURNA_INCLUDED = [
   "Airport pickup and departure transfer",
   "Welcome on arrival",
@@ -30,7 +37,7 @@ export const ANNAPURNA_INCLUDED = [
 export const ANNAPURNA_EXCLUDED = [
   "Travel to and from Nepal",
   "Nepal visa — not required for Indian nationals",
-  "Travel insurance with helicopter evacuation cover — mandatory, verified before departure",
+  INSURANCE_EXCLUSION,
   "Personal equipment",
   "Hot showers, wifi, device charging",
   "Bottled or boiled water",

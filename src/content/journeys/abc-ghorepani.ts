@@ -1,4 +1,4 @@
-import { npr, type Journey } from "@/lib/schema";
+import { npr, PENDING, type Journey } from "@/lib/schema";
 import {
   ANNAPURNA_EXCLUDED,
   ANNAPURNA_FAQS,
@@ -12,19 +12,21 @@ import {
  * as 9 days, but 10 is the honest length — 9 compresses either Poon Hill or the
  * sanctuary approach. CLAUDE.md settles it at 10 days / 8 trekking days.
  *
- * Prices are the document's indicative INR figures, stored in NPR (× 1.6).
+ * NOT BUILT. Duration is now 8 days per the launch catalogue; the itinerary
+ * below is the old 10-day staging and must be replaced with the partner's
+ * 8-day version before this page is built.
  */
 export const abcGhorepani: Journey = {
   slug: "annapurna-base-camp-ghorepani",
   name: "Annapurna Base Camp via Ghorepani & Poon Hill",
   subtitle:
-    "Ten days, eight of them walking. Poon Hill at dawn, then into the sanctuary.",
+    "Eight days. Poon Hill at dawn, then into the Annapurna Sanctuary.",
   region: "Annapurna (ACAP)",
   startCity: "Pokhara",
   endCity: "Pokhara",
-  days: 10,
-  nights: 9,
-  trekDays: 8,
+  days: 8,
+  nights: PENDING,
+  trekDays: 6,
   maxAltitudeM: 4130,
 
   optionalHighPoint: {
@@ -283,6 +285,6 @@ export const abcGhorepani: Journey = {
     ],
   },
 
-  status: "published",
+  status: "draft",
   lastVerified: "2026-07-31",
 };

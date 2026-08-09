@@ -1,4 +1,4 @@
-import { npr, type Journey } from "@/lib/schema";
+import { npr, PENDING, type Journey } from "@/lib/schema";
 import {
   ANNAPURNA_EXCLUDED,
   ANNAPURNA_FAQS,
@@ -13,22 +13,24 @@ import {
  * figures, authored there in INR and stored here in NPR (× 1.6, exact at the
  * 0.625 rate in company.ts).
  *
- * Stays `status: 'draft'` until the partner's real per-head operating cost is
- * known. The document names that as the single most important number outstanding.
+ * NOT BUILT. Duration is now 5 days per the launch catalogue, but the
+ * itinerary below still describes the old 7-day staging and must be replaced
+ * with the partner's 5-day version before this page is built. `status: 'draft'`
+ * keeps it out of generateStaticParams, so none of it renders today.
  */
 export const abcShort: Journey = {
   slug: "annapurna-base-camp-short",
   name: "Annapurna Base Camp — Short",
   subtitle:
-    "Seven days to the Annapurna Sanctuary and back. The route I send most first-timers on.",
+    "Five days to the Annapurna Sanctuary and back, from Pokhara.",
   region: "Annapurna (ACAP)",
   startCity: "Pokhara",
   endCity: "Pokhara",
-  days: 7,
-  trekDays: 5,
+  days: 5,
+  trekDays: 4,
   maxAltitudeM: 4130,
 
-  nights: 6,
+  nights: PENDING,
   voice: "founder",
   difficulty: 3,
   difficultyNote:
@@ -127,7 +129,7 @@ export const abcShort: Journey = {
   ],
 
   honestParagraph:
-    "I have walked this one, and it is the route I send most first-timers on. Seven days, five of them walking, to the Annapurna Sanctuary at 4,130m and back. The jeep at both ends removes the two dullest road-walking days that longer versions still include. You sleep low, climb to 4,130m for a sunrise, and come down. Two days are hard — the stone steps on day 3 and the morning at Base Camp on day 5 — and I will tell you that before you book rather than after.",
+    "Five days to the Annapurna Sanctuary at 4,130m and back, with a jeep at both ends to cut the dullest road-walking that longer versions still include. You sleep low, climb to 4,130m for a sunrise, and come down. Two days are hard — the stone steps below Chhomrong, and the morning at Base Camp — and we say so before you book rather than after.",
 
   honestNotes: [
     "Day 5 is long and hard: a sunrise summit push plus a big descent.",
@@ -248,6 +250,6 @@ export const abcShort: Journey = {
     ],
   },
 
-  status: "published",
+  status: "draft",
   lastVerified: "2026-07-31",
 };

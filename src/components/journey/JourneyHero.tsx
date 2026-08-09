@@ -11,43 +11,36 @@ const DIFFICULTY_LABEL: Record<Journey["difficulty"], string> = {
 };
 
 /**
- * The full-bleed opening.
+ * The opening frame, shown whole.
  *
- * The scrim is directional and darkens only the strip the text occupies. On
- * this page the subject — the lake — sits across the bottom third of the
- * frame, so text goes left on wide screens and high on narrow ones, and the
- * water is left clean in both. A flat overlay would hide the one thing the
- * trek is for.
+ * The image renders at its natural ratio rather than being cover-cropped into
+ * a viewport-height band. Nothing is cut off the top or bottom, so the peaks
+ * and the lake are both fully visible — on this route the lake is the product
+ * and it must never be sliced or buried.
  *
- * `object-position` favours the lower half so the lake and the figures on the
- * shore survive the crop; what gets lost is sky.
+ * That leaves the picture short on a narrow screen, so the text sits below it
+ * on mobile and overlays it from `sm` up, where there is room. The scrim only
+ * exists in the overlaid case, and only darkens the left column.
  */
 export default function JourneyHero({ journey }: { journey: Journey }) {
   return (
-    <section className="relative h-[82svh] min-h-[540px] w-full overflow-hidden bg-[#0a0c12]">
+    <section className="relative w-full bg-[#0a0c12]">
+      {/* Natural ratio, full width. No cover-crop, so nothing is cut. */}
       <ImageSlot
         journey={journey}
         role="hero"
         label={`${journey.name} — the signature frame`}
         sizes="100vw"
         priority
-        fill
-        className="object-[60%_58%] sm:object-[50%_60%]"
       />
 
-      {/* Narrow: darken the top band only, over sky and upper rock. */}
+      {/* Only in the overlaid case: darken the left column, nothing else. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(10,12,18,0.92)_0%,rgba(10,12,18,0.88)_30%,rgba(10,12,18,0.78)_57%,rgba(10,12,18,0.28)_70%,rgba(10,12,18,0)_80%)] sm:hidden"
+        className="pointer-events-none absolute inset-0 hidden bg-[linear-gradient(to_right,rgba(10,12,18,0.90)_0%,rgba(10,12,18,0.86)_25%,rgba(10,12,18,0.78)_44%,rgba(10,12,18,0.30)_56%,rgba(10,12,18,0)_68%)] sm:block"
       />
 
-      {/* Wide: darken the left column only, leaving the lake and the shore clean. */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 hidden bg-[linear-gradient(to_right,rgba(10,12,18,0.90)_0%,rgba(10,12,18,0.86)_25%,rgba(10,12,18,0.78)_44%,rgba(10,12,18,0.30)_56%,rgba(10,12,18,0)_68%)] sm:block"
-      />
-
-      <div className="relative z-10 flex h-full flex-col justify-start px-6 pt-10 sm:justify-center sm:px-10 sm:pt-0 lg:px-16">
+      <div className="relative z-10 flex flex-col justify-center px-6 py-10 sm:absolute sm:inset-0 sm:px-10 sm:py-0 lg:px-16">
         <div className="mx-auto w-full max-w-6xl">
           <div className="max-w-xl lg:max-w-[42%]">
             <p className="text-[0.9rem] font-medium text-[#e9c9a8]">
@@ -108,7 +101,7 @@ export default function JourneyHero({ journey }: { journey: Journey }) {
       <SlotCaption
         journey={journey}
         role="hero"
-        className="absolute bottom-4 left-6 z-10 sm:left-10 lg:left-16"
+        className="px-6 pb-4 sm:absolute sm:bottom-4 sm:left-10 sm:z-10 sm:px-0 sm:pb-0 lg:left-16"
       />
     </section>
   );

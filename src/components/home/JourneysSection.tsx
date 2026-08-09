@@ -1,6 +1,6 @@
 import Reveal from "@/components/common/Reveal";
 import JourneyCard from "./JourneyCard";
-import { getAllJourneys, getPublishedJourneys } from "@/lib/content";
+import { getFeaturedJourneys } from "@/lib/content";
 
 /**
  * The centrepiece.
@@ -14,12 +14,12 @@ import { getAllJourneys, getPublishedJourneys } from "@/lib/content";
  * gates the public index and sitemap.
  */
 export default function JourneysSection() {
-  // The homepage shows what is actually open. Everything else lives on /treks
-  // with an "opening soon" state — the homepage is not the catalogue.
-  const journeys = getPublishedJourneys();
+  // The seven launch treks. The first four are the priority tier — our
+  // partner's strongest and least-crowded routes — and the three Annapurna
+  // treks follow beneath them.
+  const journeys = getFeaturedJourneys();
   const featured = journeys.slice(0, 2);
   const secondary = journeys.slice(2);
-  const comingSoon = getAllJourneys().length - journeys.length;
 
   return (
     <section
@@ -32,9 +32,9 @@ export default function JourneysSection() {
             The treks
           </h2>
           <p className="mt-4 text-[1.0625rem] leading-relaxed text-[#e6dfd6]/65">
-            Open for booking now. Panchakunda is the rare one, and one of the
-            two our founder has walked himself. Every price below falls as the
-            group grows.
+            Seven routes we run with our partner agency. Manaslu, Pikey Peak,
+            Mardi and Langtang are the quiet ones; the Annapurna treks below
+            them are the ones most people arrive asking for.
           </p>
         </Reveal>
 
@@ -55,7 +55,7 @@ export default function JourneysSection() {
         </div>
 
         {secondary.length > 0 && (
-          <div className="mt-20 grid gap-10 border-t border-[#e6dfd6]/8 pt-14 sm:grid-cols-2 lg:max-w-3xl">
+          <div className="mt-20 grid gap-10 border-t border-[#e6dfd6]/8 pt-14 sm:grid-cols-2 lg:grid-cols-3">
             {secondary.map((journey, i) => (
               <Reveal key={journey.slug} delay={i * 0.1}>
                 <JourneyCard journey={journey} />
@@ -64,22 +64,6 @@ export default function JourneysSection() {
           </div>
         )}
 
-        {comingSoon > 0 && (
-          <Reveal className="mt-16 border-t border-[#e6dfd6]/8 pt-10">
-            <p className="max-w-2xl text-[1rem] leading-relaxed text-[#e6dfd6]/60">
-              {comingSoon} more journeys are being prepared — Mardi Himal,
-              Langtang, Tilicho Lake, the Manaslu Circuit and the ten-day
-              Signature Journey. We publish a route when we have our own
-              photographs and a day-by-day we have checked.{" "}
-              <a
-                href="/treks"
-                className="text-[#f0c08c] underline-offset-4 hover:underline"
-              >
-                See all {getAllJourneys().length} with durations and altitudes →
-              </a>
-            </p>
-          </Reveal>
-        )}
       </div>
     </section>
   );

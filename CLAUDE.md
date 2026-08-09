@@ -26,49 +26,35 @@ The correct tone is competent companionship, not aspirational distance.
 A visitor starts a WhatsApp conversation or submits an inquiry.
 There is no checkout, no payments, no accounts. Every path leads to a human conversation.
 
-## The catalogue — EIGHT JOURNEYS
+## The catalogue — SEVEN LAUNCH TREKS
 
-1. **Annapurna Base Camp Signature Journey** · 10 days Kathmandu→Kathmandu · 5 walking days · max 4,130m
-2. **Annapurna Base Camp — Short** · 7 days Pokhara→Pokhara · 5 trek days · max 4,130m
-3. **Annapurna Base Camp via Ghorepani & Poon Hill** · 10 days Pokhara→Pokhara · 8 trek days · max 4,130m
-4. **Mardi Himal** · 6 days Pokhara→Pokhara · 4 trek days · max ~4,200m (Upper Viewpoint)
-5. **Langtang Valley** · 7 days Kathmandu→Kathmandu · 5 trek days · max 3,870m (4,984m optional)
-6. **Panchakunda (North ABC)** · rare route, founder-walked
-7. **Tilicho Lake** · rare route
-8. **Manaslu Circuit** · 12 days · Larke Pass 5,110m · partner-operated, restricted area
+Featured on the homepage, in this order. The first four are the priority tier — our partner's
+strongest, least-crowded, highest-value routes. The three Annapurna treks are the secondary tier.
 
-This is a focused set of routes we sell, photograph and stand behind — not a catalogue of
-everything the partner can run. Adding a ninth is a commercial decision, not a content task.
+1. **Manaslu Circuit** · 12 days Kathmandu→Kathmandu · Larke Pass ~5,106m · restricted area
+2. **Pikey Peak**
+3. **Mardi Himal** · 6 days Pokhara→Pokhara · max ~4,200m
+4. **Langtang Valley** · 7 days Kathmandu→Kathmandu · max 3,870m
+5. **Annapurna Base Camp — Short** · 5 days
+6. **Annapurna Base Camp via Ghorepani & Poon Hill** · 8 days
+7. **North Annapurna Base Camp with Panchakunda** · 5 days · max 4,190m
 
-## The rule that governs publishing
+Also in the content layer but not featured: the ABC Signature Journey and Tilicho Lake.
 
-A journey is `status: 'published'` **only when it has BOTH real photography AND real
-itinerary/cost detail.** Everything else is `status: 'draft'`.
+## The partnership
 
-- Drafts render "Opening soon — message us" with a WhatsApp inquiry. Never a half-built page,
-  never stock imagery, never an invented itinerary to fill the gap.
-- Drafts stay out of the sitemap and `generateStaticParams`, but **do** appear in the `/treks`
-  index carrying an "opening soon" state. Ship what is real, flag what is coming.
-- If a task would publish a journey without real photographs and real detail, keep it draft.
+Adventure Walk Way Pvt. Ltd., operating since 1996, TAAN-registered, based in Thamel. They operate
+every trek; we own the brand, the marketing and the customer relationship. We keep what we charge
+above their price, plus a profit share. We are an inquiry-first travel brand, not an operator, and
+the site must never imply otherwise.
 
-## Two voices — enforce strictly
-
-A false "I walked this" would break the brand, and the people most likely to catch it are the
-experienced trekkers we most need to trust us.
-
-**Founder-walked — first person permitted.** ONLY these two:
-- Annapurna Base Camp — Short
-- Panchakunda (North ABC)
-
-**Not founder-walked — no first-person experience claim.** Real and sellable, framed as
-"a route we run" or "operated through our partner agency". Honest detail from packages.md and
-real knowledge, never staged as the founder's own trek:
-- ABC Signature Journey · ABC via Ghorepani & Poon Hill · Mardi Himal · Langtang Valley ·
-  Tilicho Lake · Manaslu Circuit
-
-The founder's story and the homepage credibility rest on ABC-Short and Panchakunda
-specifically. Do not imply personal experience of any other route — not in journey copy, not
-on the About page, not in image captions.
+Verified and publishable:
+- **Porters:** two porters per guide. Maximum load 20kg in the Annapurna region, 25kg in Everest.
+- **Evacuation:** the operator takes **no commission** on rescue flights. A helicopter is chartered
+  at the client's cost and the client is taken to hospital. Guide safety is prioritised.
+- **Guides are insured.** Customer travel insurance is **not** included in any package — every
+  "not included" list must say that insurance with helicopter evacuation cover is mandatory, is the
+  customer's responsibility, and is verified before departure.
 
 ## Treks vs Tours — a deliberate product separation
 

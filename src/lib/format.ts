@@ -16,8 +16,9 @@ export function plain(value: MaybeNumber): string {
   return isPending(value) ? TBC : `${value}`;
 }
 
-export function altitude(value: MaybeNumber): string {
-  return isPending(value) ? TBC : `${value.toLocaleString("en-IN")}m`;
+export function altitude(value: MaybeNumber, approx = false): string {
+  if (isPending(value)) return TBC;
+  return `${approx ? "~" : ""}${value.toLocaleString("en-IN")}m`;
 }
 
 export function metres(value: MaybeNumber): string {
