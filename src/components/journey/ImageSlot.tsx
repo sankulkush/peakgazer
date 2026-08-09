@@ -1,7 +1,7 @@
 import Image from "next/image";
 import PlaceholderImage from "@/components/common/PlaceholderImage";
 import { findImage, imageShape, naturalRatio } from "@/lib/images";
-import type { ImageRole, Journey } from "@/lib/schema";
+import { isPending, type ImageRole, type Journey } from "@/lib/schema";
 
 type ImageSlotProps = {
   journey: Journey;
@@ -107,9 +107,14 @@ export function SlotCaption({
       </p>
     );
   }
+  // A real photograph whose date has not been confirmed still gets its place.
+  // Naming the gap is the caption rule working, not failing it.
+  const dated = !isPending(image.month) && !isPending(image.year);
   return (
     <p className={`text-[0.72rem] text-[#e6dfd6]/45 ${className}`}>
-      {image.place}, {image.month} {image.year}
+      {dated
+        ? `${image.place}, ${image.month} ${image.year}`
+        : `${image.place} — month to follow`}
     </p>
   );
 }

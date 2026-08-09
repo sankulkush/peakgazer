@@ -228,8 +228,13 @@ export interface JourneyImage {
   src: string;
   alt: string;
   place: string; // caption rule
-  month: Month; // caption rule
-  year: number;
+  /**
+   * Caption rule. PENDING where the photographer has not confirmed when the
+   * frame was taken — a photograph can be real and publishable before its
+   * date is known, and a guessed month is still a fabricated one.
+   */
+  month: Month | Pending;
+  year: number | Pending;
   width: number; // explicit dimensions — CLS budget
   height: number;
   credit?: string;

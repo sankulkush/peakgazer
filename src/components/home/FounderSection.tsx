@@ -1,4 +1,4 @@
-import PlaceholderImage from "@/components/common/PlaceholderImage";
+import Image from "next/image";
 import Reveal from "@/components/common/Reveal";
 import { PARTNER_NAME } from "@/content/company";
 
@@ -9,19 +9,29 @@ import { PARTNER_NAME } from "@/content/company";
  * and authorship of every photograph — neither of which is true now that the
  * catalogue is partner-operated. Agency voice, no first person, and no claim
  * to photographs we do not hold.
+ *
+ * The portrait is one we do hold. Its date is not a guess: panchakunda.ts
+ * records the whole Panchakunda set as the founder's own, October 2025, and
+ * names this frame as one held back at the time.
  */
 export default function FounderSection() {
   return (
     <section className="border-b border-[#e6dfd6]/8 px-6 py-24 sm:px-10 sm:py-28 lg:px-16">
       <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-12 lg:gap-16">
         <Reveal className="lg:col-span-5">
-          <PlaceholderImage
-            label="On the trail with our partner's team"
-            ratio="4 / 5"
-            className="max-w-[22rem] rounded-sm"
+          <Image
+            src="/images/home/founder-panchakunda.jpg"
+            alt="Our founder standing on the gravel shore of the turquoise Panchakunda lake, arms folded, with the glacier and the snow face above the lake behind him"
+            width={900}
+            height={1200}
+            quality={82}
+            sizes="(max-width: 1024px) 88vw, 22rem"
+            className="h-auto w-full max-w-[22rem] rounded-sm"
           />
-          <p className="mt-3 text-[0.75rem] text-[#e6dfd6]/40">
-            Photograph pending — place and month to follow
+          {/* Named, because the copy beside it is about the partner agency and
+              an unlabelled face there reads as one of their guides. */}
+          <p className="mt-3 text-[0.75rem] text-[#e6dfd6]/45">
+            Our founder at Panchakunda, October 2025
           </p>
         </Reveal>
 

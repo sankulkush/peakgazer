@@ -19,9 +19,11 @@ import { npr, PENDING, type Journey, type JourneyImage } from "@/lib/schema";
  * SPELLING: "Sandi Kharka" is used throughout. The founder is to confirm it
  * against "Sadhi Kharka" — whichever is right, it must be one of them everywhere.
  *
- * PHOTOGRAPHY: the founder's own, October 2025. Two source frames are
- * deliberately excluded — the founder's own portrait, and an identifiable
- * customer at a suspension bridge whose consent has not been confirmed.
+ * PHOTOGRAPHY: the founder's own, October 2025. One source frame is still
+ * excluded — an identifiable customer at a suspension bridge whose consent has
+ * not been confirmed. The founder's own portrait was also held back and is now
+ * published, on the homepage rather than here; its October 2025 caption comes
+ * from this note.
  */
 
 const P = "/images/journeys/panchakunda";

@@ -214,7 +214,19 @@ export const abcShort: Journey = {
   ],
 
   guide: { slug: "guide-one" },
-  images: [],
+  images: [
+    {
+      role: "hero",
+      src: "/images/journeys/abc-short/hero.jpg",
+      alt: "Annapurna South on the left and the fluted spire of Machapuchare on the right, above the forested ridges of the Modi Khola valley, with a scatter of village roofs on the near hillside",
+      place: "Above the Modi Khola valley, Annapurna",
+      // Month not supplied with the frame. Not guessed from the vegetation.
+      month: PENDING,
+      year: PENDING,
+      width: 1672,
+      height: 941,
+    },
+  ],
 
   faqs: [
     ...ANNAPURNA_FAQS,

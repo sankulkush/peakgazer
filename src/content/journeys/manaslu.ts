@@ -178,7 +178,20 @@ export const manaslu: Journey = {
 
   costBreakdown: [],
   guide: { slug: "guide-one" },
-  images: [],
+  images: [
+    {
+      role: "hero",
+      src: "/images/journeys/manaslu/hero.jpg",
+      alt: "A trekker in a dark jacket walking away across a wide snow-covered glacier, one pole in hand, towards a long wall of snow peaks",
+      place: "Manaslu region",
+      // Neither the exact point on the route nor the month came with the
+      // frame. "Manaslu region" is as specific as the source supports.
+      month: PENDING,
+      year: PENDING,
+      width: 1478,
+      height: 1064,
+    },
+  ],
 
   faqs: [
     { question: "Can I walk this solo?", answer: "Since March 2026, yes — with a licensed guide through a registered agency. The old two-person minimum is gone." },
