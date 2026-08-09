@@ -1,9 +1,9 @@
 import Reveal from "@/components/common/Reveal";
-import TrekSlider from "./TrekSlider";
+import TrekRow from "./TrekRow";
 import { getJourney } from "@/lib/content";
 
 /**
- * One screen, three treks on a rail, and the catalogue at the end of it.
+ * One screen, three treks, and one button to the rest of them.
  *
  * Deliberately not the whole list. Stacking every route down the homepage
  * makes it read as the boundary of what can be arranged, which is the
@@ -11,11 +11,15 @@ import { getJourney } from "@/lib/content";
  *
  * The three are named rather than taken off the top of the featured order, so
  * reordering the catalogue cannot silently change the shop window.
+ *
+ * Panchakunda leads because the first card is the one that opens on arrival,
+ * and it is the only one of the three with a photograph. A grey "photograph
+ * pending" box is survivable in a narrow card and not in the wide one.
  */
 const TOP = [
-  "manaslu-circuit",
-  "annapurna-base-camp-short",
   "panchakunda-north-abc",
+  "annapurna-base-camp-short",
+  "manaslu-circuit",
 ];
 
 export default function JourneysSection() {
@@ -45,9 +49,9 @@ export default function JourneysSection() {
 
           <a
             href="/treks"
-            className="group inline-flex shrink-0 items-center gap-2 text-[0.95rem] font-medium text-[#f0c08c] transition-colors duration-300 hover:text-[#f8d3a6]"
+            className="group inline-flex shrink-0 items-center gap-2.5 rounded-full border border-[#f0c08c]/35 px-6 py-3 text-[0.9rem] font-medium text-[#f0c08c] transition-colors duration-300 hover:border-[#f0c08c] hover:bg-[#f0c08c] hover:text-[#14110b]"
           >
-            View all treks
+            Explore all treks
             <span
               aria-hidden="true"
               className="transition-transform duration-300 group-hover:translate-x-1"
@@ -59,7 +63,7 @@ export default function JourneysSection() {
       </div>
 
       <div className="mx-auto mt-12 max-w-6xl">
-        <TrekSlider journeys={journeys} />
+        <TrekRow journeys={journeys} />
       </div>
     </section>
   );
