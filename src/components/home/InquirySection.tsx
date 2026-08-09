@@ -1,7 +1,9 @@
 import InquiryForm from "@/components/inquiry/InquiryForm";
 import WhatsAppButton from "@/components/inquiry/WhatsAppButton";
 import Reveal from "@/components/common/Reveal";
+import InlinePhoto from "./InlinePhoto";
 import { getAllJourneys } from "@/lib/content";
+import { PENDING } from "@/lib/schema";
 import { RESPONSE_TIME, WHATSAPP_DISPLAY } from "@/content/company";
 
 /**
@@ -45,6 +47,21 @@ export default function InquirySection() {
               {WHATSAPP_DISPLAY}
             </p>
           </div>
+
+          {/* The people, at the end of the page where the ask is. Six faces
+              rather than a testimonial card: this is the part of the pitch a
+              competitor cannot fabricate. */}
+          <InlinePhoto
+            src="/images/home/group-selfie.jpg"
+            alt="Six walkers crowded into a selfie at dawn in down jackets and hats, all of them laughing, flat grey light behind them"
+            width={900}
+            height={1600}
+            place={PENDING}
+            month={PENDING}
+            year={PENDING}
+            sizes="(max-width: 1024px) 60vw, 15rem"
+            className="mt-10 max-w-[15rem]"
+          />
         </Reveal>
 
         <Reveal delay={0.1} className="lg:col-span-7">

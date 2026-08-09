@@ -1,6 +1,8 @@
 import Reveal from "@/components/common/Reveal";
 import TrekRow from "./TrekRow";
+import InlinePhoto from "./InlinePhoto";
 import { getJourney } from "@/lib/content";
+import { PENDING } from "@/lib/schema";
 
 /**
  * One screen, three treks, and one button to the rest of them.
@@ -64,6 +66,25 @@ export default function JourneysSection() {
 
       <div className="mx-auto mt-12 max-w-6xl">
         <TrekRow journeys={journeys} />
+      </div>
+
+      {/* The meal, shown rather than listed. Sits under the row at the width
+          of a single narrow card so it reads as a note on the treks above,
+          not as a fourth trek. */}
+      <div className="mx-auto mt-14 max-w-6xl">
+        <Reveal delay={0.06}>
+          <InlinePhoto
+            src="/images/home/dal-bhat.jpg"
+            alt="A steel thali of rice, dal, greens, curried meat and pickle on a scarred wooden teahouse table, with a second plate at the edge of the frame"
+            width={1092}
+            height={859}
+            place={PENDING}
+            month={PENDING}
+            year={PENDING}
+            sizes="(max-width: 640px) 88vw, 20rem"
+            className="max-w-[20rem]"
+          />
+        </Reveal>
       </div>
     </section>
   );

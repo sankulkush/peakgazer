@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Reveal from "@/components/common/Reveal";
+import InlinePhoto from "./InlinePhoto";
 import { PARTNER_NAME } from "@/content/company";
 
 /**
@@ -63,6 +64,21 @@ export default function FounderSection() {
               something that reads well.
             </p>
           </div>
+
+          {/* A texture note, deliberately small. The ascent is in its snow
+              band behind this section, and this is what that snow actually
+              holds — the kind of detail a stock library cannot supply. */}
+          <InlinePhoto
+            src="/images/home/snow-tracks.jpg"
+            alt="A line of animal pawprints crossing a slab of untouched snow on a rock, with older prints scattered around them"
+            width={1000}
+            height={1333}
+            place="Mardi Himal ridge"
+            month="November"
+            year={2023}
+            sizes="(max-width: 1024px) 40vw, 11rem"
+            className="mt-10 max-w-[11rem]"
+          />
         </Reveal>
       </div>
     </section>
