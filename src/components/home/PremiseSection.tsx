@@ -12,12 +12,13 @@ export default function PremiseSection() {
     <section className="border-b border-[#e6dfd6]/8 px-6 py-24 sm:px-10 sm:py-32 lg:px-16">
       <Reveal className="mx-auto max-w-3xl">
         <p className="font-display text-[clamp(1.5rem,3.2vw,2.35rem)] leading-[1.35] font-medium tracking-[-0.015em] text-[#f7f2ea] text-balance">
-          We run four treks, and we have walked every one of them ourselves.
+          The treks we feature are where we spend most of our time. They are not
+          the whole of what we do.
         </p>
         <p className="mt-6 font-display text-[clamp(1.5rem,3.2vw,2.35rem)] leading-[1.35] font-medium tracking-[-0.015em] text-[#e6dfd6]/60 text-balance">
-          Everything on this site is the same information we would give a friend
-          — the walking hours, the altitudes, the days that are hard, and where
-          every rupee goes.
+          If you are coming to Nepal, tell us what you have in mind and we will
+          plan it around you — wherever you want it to go. Organised properly,
+          every cost shown, and nothing promised we cannot deliver.
         </p>
       </Reveal>
     </section>

@@ -21,7 +21,9 @@ const TIER_LABEL: Record<string, string> = {
  * Figures come from the first journey's real tiers. Nothing is hard-coded.
  */
 export default function GroupSection() {
-  const journey = getAllJourneys()[0];
+  // The first journey carrying a real tier table. Picking blindly off the top
+  // of the list gave an empty chart the moment a route without pricing led it.
+  const journey = getAllJourneys().find((j) => j.price.groupTiers.length > 0);
   if (!journey) return null;
 
   const tiers = journey.price.groupTiers;

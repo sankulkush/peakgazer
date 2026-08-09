@@ -56,7 +56,7 @@ export default function HeroContent() {
           className="mb-5 text-[0.9rem] font-medium text-[#e9c9a8]"
           style={{ animationDelay: DELAY.eyebrow }}
         >
-          Pokhara · Kathmandu
+          Nepal, planned properly
         </p>
 
         {/* `text-balance` is the real guard against an orphaned "hard." — the
@@ -66,9 +66,9 @@ export default function HeroContent() {
           className="font-display max-w-[20em] text-[clamp(1.75rem,2.35vw,2.05rem)] font-semibold leading-[1.12] tracking-[-0.02em] text-balance text-[#f7f2ea]"
           style={{ textShadow: "0 1px 20px rgba(0,0,0,0.4)" }}
         >
-          <RevealLine delay={DELAY.line1}>Annapurna, Mardi, Langtang.</RevealLine>
+          <RevealLine delay={DELAY.line1}>Come for the mountains.</RevealLine>
           <RevealLine delay={DELAY.line2}>
-            We&apos;ll tell you which days are hard.
+            We&apos;ll handle the rest.
           </RevealLine>
         </h1>
 
@@ -80,8 +80,8 @@ export default function HeroContent() {
             animationDelay: DELAY.sub,
           }}
         >
-          Real walking hours, real altitudes, and the cost broken down line by
-          line. Four treks, five to ten days. Highest point 4,130m.
+          Real walking hours, real altitudes, and every cost shown line by
+          line — so you know what you are walking into before you book.
         </p>
 
         <div
@@ -97,7 +97,7 @@ export default function HeroContent() {
             href="#journeys"
             className="group inline-flex items-center gap-2 text-[0.875rem] text-[#e6dfd6]/80 transition-colors duration-300 hover:text-[#f7f2ea]"
           >
-            See the four treks
+            See the treks
             <span
               aria-hidden="true"
               className="transition-transform duration-300 group-hover:translate-x-1"

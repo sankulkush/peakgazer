@@ -39,11 +39,6 @@ export default function JourneyCard({
             />
           </div>
 
-          {journey.status === "draft" && (
-            <span className="absolute top-3 left-3 rounded-full bg-[#0a0c12]/85 px-2.5 py-1 text-[0.65rem] font-medium tracking-wide text-[#e9c9a8]">
-              draft
-            </span>
-          )}
         </div>
 
         <div className={featured ? "mt-6" : "mt-4"}>

@@ -1,5 +1,5 @@
 import WhatsAppButton from "@/components/inquiry/WhatsAppButton";
-import { getAllJourneys, getPublishedJourneys } from "@/lib/content";
+import { getPublishedJourneys } from "@/lib/content";
 import {
   COMPANY_NAME,
   INSTAGRAM_HANDLE,
@@ -22,7 +22,6 @@ const linkClass =
 export default function Footer() {
   // Only published journeys are linked: a draft slug 404s in production.
   const journeys = getPublishedJourneys();
-  const total = getAllJourneys().length;
   const instagramPending = INSTAGRAM_HANDLE.startsWith("TODO");
 
   return (
@@ -35,11 +34,10 @@ export default function Footer() {
           people who ask.
         */}
         <p className="max-w-2xl text-[1.0625rem] leading-relaxed text-[#e6dfd6]/70">
-          We run {total} journeys and publish a route only once we have our own
-          photographs and a day-by-day we have checked. Planning something else
-          in Nepal — a different region, or something built around your dates?{" "}
+          Coming to Nepal? Tell us what you have in mind and we will plan it
+          around you.{" "}
           <WhatsAppButton
-            context={{ journeyName: "a custom route in Nepal" }}
+            context={{ journeyName: "a trip planned around my own dates" }}
             className="text-[#f0c08c] underline-offset-4 hover:underline"
           >
             Message us
@@ -94,7 +92,7 @@ export default function Footer() {
               ))}
               <li>
                 <a href="/treks" className={linkClass}>
-                  All {total} treks, with what is opening soon →
+                  Browse all treks →
                 </a>
               </li>
             </ul>

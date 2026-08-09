@@ -1,69 +1,59 @@
 import Reveal from "@/components/common/Reveal";
 import JourneyCard from "./JourneyCard";
-import { getFeaturedJourneys } from "@/lib/content";
+import { getJourney } from "@/lib/content";
 
 /**
- * The centrepiece.
+ * One screen, two treks, and a way through to everything else.
  *
- * Two featured treks carry the section and two sit secondary beneath them —
- * asymmetric by construction, never four equal cards. Featured slots are taken
- * in content order, which `lib/content.ts` sets deliberately.
- *
- * Draft journeys render here on purpose: this is the review surface, and the
- * chip on each card shows status at a glance. `getPublishedJourneys()` is what
- * gates the public index and sitemap.
+ * Deliberately not the catalogue. Stacking every route down the homepage makes
+ * the list read as the limit of what can be arranged, which is the opposite of
+ * true — /treks is the browse layer and this is the way into it.
  */
 export default function JourneysSection() {
-  // The seven launch treks. The first four are the priority tier — our
-  // partner's strongest and least-crowded routes — and the three Annapurna
-  // treks follow beneath them.
-  const journeys = getFeaturedJourneys();
-  const featured = journeys.slice(0, 2);
-  const secondary = journeys.slice(2);
+  // Named explicitly rather than taken off the top of the featured order —
+  // these two are the shop window and should not move when the order does.
+  const top = ["manaslu-circuit", "annapurna-base-camp-short"]
+    .map(getJourney)
+    .filter((j) => j !== undefined);
 
   return (
     <section
       id="journeys"
-      className="border-b border-[#e6dfd6]/8 px-6 py-24 sm:px-10 sm:py-32 lg:px-16"
+      className="border-b border-[#e6dfd6]/8 px-6 py-24 sm:px-10 sm:py-28 lg:px-16"
     >
       <div className="mx-auto max-w-6xl">
         <Reveal className="max-w-2xl">
           <h2 className="font-display text-[clamp(1.75rem,3.4vw,2.6rem)] font-semibold tracking-[-0.02em] text-[#f7f2ea]">
-            The treks
+            Where we spend most of our time
           </h2>
           <p className="mt-4 text-[1.0625rem] leading-relaxed text-[#e6dfd6]/65">
-            Seven routes we run with our partner agency. Manaslu, Pikey Peak,
-            Mardi and Langtang are the quiet ones; the Annapurna treks below
-            them are the ones most people arrive asking for.
+            Run with our partner agency, who have been working these routes
+            since 1996. Every price falls as the group grows.
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-12 lg:grid-cols-5 lg:gap-10">
-          {featured.map((journey, i) => (
-            <Reveal
-              key={journey.slug}
-              delay={i * 0.1}
-              className={
-                i === 0
-                  ? "lg:col-span-3"
-                  : "lg:col-span-2 lg:mt-24"
-              }
-            >
+        <div className="mt-12 grid gap-12 sm:grid-cols-2 sm:gap-8">
+          {top.map((journey, i) => (
+            <Reveal key={journey.slug} delay={i * 0.08}>
               <JourneyCard journey={journey} featured />
             </Reveal>
           ))}
         </div>
 
-        {secondary.length > 0 && (
-          <div className="mt-20 grid gap-10 border-t border-[#e6dfd6]/8 pt-14 sm:grid-cols-2 lg:grid-cols-3">
-            {secondary.map((journey, i) => (
-              <Reveal key={journey.slug} delay={i * 0.1}>
-                <JourneyCard journey={journey} />
-              </Reveal>
-            ))}
-          </div>
-        )}
-
+        <Reveal className="mt-12 border-t border-[#e6dfd6]/8 pt-8">
+          <a
+            href="/treks"
+            className="group inline-flex items-center gap-2 font-display text-[1.05rem] font-medium text-[#f0c08c] transition-colors duration-300 hover:text-[#f8d3a6]"
+          >
+            View all treks
+            <span
+              aria-hidden="true"
+              className="transition-transform duration-300 group-hover:translate-x-1"
+            >
+              →
+            </span>
+          </a>
+        </Reveal>
       </div>
     </section>
   );

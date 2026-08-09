@@ -1,25 +1,26 @@
 import type { Metadata } from "next";
-import TrekTable from "@/components/treks/TrekTable";
+import TrekBrowser from "@/components/treks/TrekBrowser";
+import WhatsAppButton from "@/components/inquiry/WhatsAppButton";
 import Footer from "@/components/layout/Footer";
-import { getAllJourneys, getPublishedJourneys } from "@/lib/content";
+import { getAllJourneys } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "All treks — durations, altitudes and indicative costs | Uthbus Tours",
   description:
-    "Every journey we run, with days, walking days, highest point, difficulty and indicative cost per person. Filter by region, length, difficulty and season.",
+    "Every trek we feature, with days, highest point, difficulty and indicative cost per person. Search by name, region or difficulty.",
 };
 
 /**
- * The functional browse layer, kept deliberately separate from the editorial
- * journey pages.
+ * The browse layer, deliberately separate from the editorial journey pages.
  *
- * Drafts appear here — that is the point of the index. Ship what is real, flag
- * what is coming. They are excluded from the sitemap and from
- * generateStaticParams; this page is where "opening soon" is visible.
+ * Plain and fast: search, filter, scan, leave. Someone arriving here wants to
+ * compare routes and then go to the one that matters to them, so this page
+ * spends nothing on atmosphere.
+ *
+ * It lists every trek in the content layer and scales to more without edits.
  */
 export default function TreksPage() {
   const journeys = getAllJourneys();
-  const open = getPublishedJourneys().length;
 
   return (
     <>
@@ -29,23 +30,35 @@ export default function TreksPage() {
             All treks
           </h1>
           <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-[#e6dfd6]/65">
-            {journeys.length} journeys. {open} are open for booking now; the
-            rest are being prepared and are marked as such. We publish a route
-            when we have our own photographs of it and a day-by-day we have
-            checked — not before.
+            The routes we feature, run with our partner agency. If what you want
+            is not here, it can almost certainly still be arranged — tell us
+            what you have in mind.
           </p>
 
           <div className="mt-12">
-            <TrekTable journeys={journeys} />
+            <TrekBrowser journeys={journeys} />
           </div>
 
-          <p className="mt-10 max-w-2xl text-[0.85rem] leading-relaxed text-[#e6dfd6]/40">
-            Prices are indicative, quoted per person at eight travellers, and
-            converted from Nepali rupees. They are not a quote — the final
-            number depends on season, group size and operations. Figures shown
-            as &ldquo;to be confirmed&rdquo; are genuinely unconfirmed rather
-            than withheld.
-          </p>
+          <div className="mt-20 border-t border-[#e6dfd6]/8 pt-10">
+            <p className="max-w-2xl text-[1rem] leading-relaxed text-[#e6dfd6]/65">
+              Looking for something that is not on this page?{" "}
+              <WhatsAppButton
+                context={{ journeyName: "a trip planned around my own dates" }}
+                className="text-[#f0c08c] underline-offset-4 hover:underline"
+              >
+                Message us
+              </WhatsAppButton>{" "}
+              and we will plan it around you.
+            </p>
+
+            <p className="mt-8 max-w-2xl text-[0.85rem] leading-relaxed text-[#e6dfd6]/40">
+              Prices are indicative, quoted per person at eight travellers, and
+              converted from Nepali rupees. They are not a quote — the final
+              number depends on season, group size and operations. Figures shown
+              as &ldquo;to be confirmed&rdquo; are genuinely unconfirmed rather
+              than withheld.
+            </p>
+          </div>
         </div>
       </main>
       <Footer />

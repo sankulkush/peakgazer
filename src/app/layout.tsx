@@ -22,9 +22,9 @@ const bricolage = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: "Uthbus Tours — Treks in Annapurna and Langtang",
+  title: "Uthbus Tours — Trekking and travel in Nepal",
   description:
-    "Four treks in Nepal, five to ten days, from Pokhara and Kathmandu. Real walking hours, real altitudes, and the cost broken down line by line.",
+    "Trekking and travel in Nepal, planned around you. Real walking hours, real altitudes, and every cost shown line by line.",
 };
 
 export default function RootLayout({
