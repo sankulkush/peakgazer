@@ -5,13 +5,14 @@ This is a live business, not a portfolio piece. It will take real bookings from 
 
 ## What this business is
 
-A Nepali-owned trekking company selling four treks to **Indian travellers**.
+A Nepali-owned trekking company selling treks and wider Nepal travel, to **Indian travellers and, increasingly, a global audience**.
 The founder is Nepali, has personally walked every route offered, and is the photographer.
 Ground operations run through a registered partner agency whose licence is displayed on the site.
 
 ## Who buys
 
-Indian travellers, 20–45. University groups, office colleague groups, families, couples.
+Indian travellers, 20–45 — still the core — plus a growing international audience.
+University groups, office colleague groups, families, couples.
 Booking lead time: 2–6 weeks. Discovery: Instagram reels and WhatsApp forwards from friends.
 Price sensitivity: moderate. Group size: 2–12, usually organised by one person.
 
@@ -74,8 +75,9 @@ Three display currencies: **INR (default) · NPR · USD**
 
 - **Base currency in content files is NPR.** Cost lines are natively NPR — permits, guide day
   rates, lodge rates — and the transparency page must be honest in the currency we actually pay in.
-- **Display defaults to INR** because that is the currency our buyer thinks in. An Indian
+- **Display defaults to INR** because that is the currency the core buyer thinks in. An Indian
   traveller should never have to do mental arithmetic to know whether they can afford a trek.
+  With international traffic growing, revisit whether the switcher should default by locale.
 - Switcher lives in the navbar, visible on every page and every viewport. Selection persists
   across pages via localStorage.
 - Conversion rates are a single constant in `src/content/company.ts`, manually maintained.

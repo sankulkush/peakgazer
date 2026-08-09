@@ -50,8 +50,17 @@ export default function ImageSlot({
     );
   }
 
-  // Cover-fill is only safe on a wide frame. Anything else renders whole.
-  if (fill && imageShape(image) === "wide") {
+  /*
+    Cover-fill in a fixed box.
+
+    A wide frame is centred. An upright one is anchored to the top instead:
+    a card slot has a shape the layout depends on, so it cannot take the
+    picture's ratio the way a banner can, and top-anchoring keeps faces and
+    summits rather than slicing them out of the middle.
+  */
+  if (fill) {
+    const position =
+      imageShape(image) === "wide" ? "object-center" : "object-top";
     return (
       <Image
         src={image.src}
@@ -60,7 +69,7 @@ export default function ImageSlot({
         priority={priority}
         quality={82}
         sizes={sizes}
-        className={`object-cover ${className}`}
+        className={`object-cover ${position} ${className}`}
       />
     );
   }

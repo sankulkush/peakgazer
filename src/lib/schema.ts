@@ -126,6 +126,23 @@ export interface ItineraryDay {
   stay?: string;
 }
 
+/**
+ * A fixed-departure group trek someone can join.
+ *
+ * `filled` and `capacity` are real counts or this section does not ship. A
+ * fabricated "two places left" is the fake-scarcity pattern this site exists
+ * to be the opposite of, and a customer would act on it.
+ */
+export interface GroupDeparture {
+  /** ISO date of departure. */
+  date: string;
+  journeySlug: string;
+  capacity: number;
+  filled: number;
+  pricePerPerson: AmountNPR;
+  status: VerificationStatus;
+}
+
 /** Real upsells. Never a promised slot or price until it is booked. */
 export interface AddOn {
   label: string;
