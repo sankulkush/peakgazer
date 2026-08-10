@@ -1,112 +1,134 @@
 "use client";
 
-import { useState } from "react";
-import ImageSlot from "@/components/journey/ImageSlot";
-import { formatFromNPR } from "@/lib/currency";
-import { TBC, altitude, count } from "@/lib/format";
+import { useCallback, useEffect, useRef, useState } from "react";
+import TrekCard from "./TrekCard";
 import type { Journey } from "@/lib/schema";
 
-const DIFFICULTY: Record<number, string> = {
-  1: "Easy",
-  2: "Moderate",
-  3: "Moderate–demanding",
-  4: "Demanding",
-};
-
 /**
- * Three treks, one of them open.
+ * The treks, on a row that runs off the edge.
  *
- * The open card is wide and flush to the top; the other two are narrow and
- * dropped down, which is what gives the row its rhythm. Hovering a narrow card
- * opens it and closes whichever was open. The first is open on arrival and the
- * row returns to it on mouse-out, so the section is never caught flat.
+ * The row is deliberately wider than it can show: the open card, one at
+ * two-thirds of it, and a third cut in half at the right margin. That half card
+ * is the affordance — it says there is more without needing a label — and the
+ * arrow sitting over it scrolls the row on. The last panel in the row is the
+ * way into the full catalogue, so scrolling to the end always arrives
+ * somewhere.
  *
- * Width comes from `flex-grow` against a zero basis, so the three always share
- * the row rather than overflowing it, and one aspect ratio serves all three —
- * the open card is taller because it is wider, not because it is told to be.
+ * Hovering a card opens it and closes whichever was open. The first is open on
+ * arrival and the row returns to it on mouse-out, so the section is never
+ * caught flat. `onFocus` mirrors hover so keyboard tabbing opens the row too.
  *
- * `onFocus` mirrors the hover so the row opens under keyboard tabbing too, and
- * below `lg` — where there is no hover to speak of — the flex row becomes a
- * plain grid of equal cards and none of this applies.
+ * Below `lg` there is no hover and no room, so every card takes the same width
+ * and the row is swiped rather than expanded.
  */
 export default function TrekRow({ journeys }: { journeys: Journey[] }) {
   const [active, setActive] = useState(0);
+  const scroller = useRef<HTMLDivElement>(null);
+  const [edges, setEdges] = useState({ left: false, right: true });
+
+  const readEdges = useCallback(() => {
+    const el = scroller.current;
+    if (!el) return;
+    setEdges({
+      left: el.scrollLeft > 8,
+      right: el.scrollLeft + el.clientWidth < el.scrollWidth - 8,
+    });
+  }, []);
+
+  useEffect(() => {
+    readEdges();
+    window.addEventListener("resize", readEdges);
+    return () => window.removeEventListener("resize", readEdges);
+  }, [readEdges]);
+
+  // One nudge moves the row by a closed card, so the half-cut card lands whole
+  // rather than the row jumping an arbitrary distance.
+  const nudge = (dir: 1 | -1) => {
+    const el = scroller.current;
+    if (!el) return;
+    const step = Math.min(el.clientWidth * 0.6, 392);
+    el.scrollBy({ left: dir * step, behavior: "smooth" });
+  };
 
   return (
-    <div
-      onMouseLeave={() => setActive(0)}
-      className="grid gap-10 sm:grid-cols-2 lg:flex lg:items-start lg:gap-6"
-    >
-      {journeys.map((journey, i) => {
-        const open = i === active;
-        const eight = journey.price.groupTiers.find((t) => t.groupSize === 8);
-
-        return (
-          <article
+    <div className="relative">
+      <div
+        ref={scroller}
+        onScroll={readEdges}
+        onMouseLeave={() => setActive(0)}
+        /* Bleeds to the screen edge below lg. Inside the content column the
+           next card only peeked by 5% at 390px, which reads as a rendering
+           slip rather than an invitation; cut at the true edge it peeks by a
+           fifth and the row obviously continues. */
+        className="-mx-6 flex items-start gap-6 overflow-x-auto scroll-smooth px-6 pb-2 sm:-mx-10 sm:px-10 lg:mx-0 lg:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {journeys.map((journey, i) => (
+          <TrekCard
             key={journey.slug}
-            onMouseEnter={() => setActive(i)}
-            onFocus={() => setActive(i)}
-            style={{ flexGrow: open ? 2.2 : 1, flexBasis: 0 }}
-            className={`group min-w-0 transition-all duration-500 ease-out motion-reduce:transition-none ${
-              open ? "lg:mt-0" : "lg:mt-16"
-            }`}
-          >
-            <a href={`/journeys/${journey.slug}`} className="block">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-sm">
-                <ImageSlot
-                  journey={journey}
-                  role="hero"
-                  label={journey.name}
-                  sizes="(max-width: 640px) 88vw, (max-width: 1024px) 44vw, 50vw"
-                  fill
-                />
-              </div>
+            journey={journey}
+            open={i === active}
+            onOpen={() => setActive(i)}
+          />
+        ))}
 
-              <h3
-                className={`mt-5 font-display font-semibold tracking-[-0.015em] text-[#f7f2ea] transition-colors duration-300 group-hover:text-[#f0c08c] ${
-                  open ? "text-[1.5rem]" : "text-[1.1rem]"
-                }`}
-              >
-                {journey.name}
-              </h3>
+        {/* The end of the row is not a trek. */}
+        <a
+          href="/treks"
+          className="group mt-16 flex w-[78vw] shrink-0 flex-col justify-between rounded-sm border border-[#e6dfd6]/15 bg-[#0b0e16]/70 p-7 transition-colors duration-300 hover:border-[#f0c08c]/45 sm:w-[22rem] lg:w-[20rem]"
+        >
+          <div>
+            <h3 className="font-display text-[1.35rem] leading-snug font-semibold tracking-[-0.02em] text-[#f7f2ea]">
+              Explore all treks
+            </h3>
+            <p className="mt-4 text-[0.95rem] leading-relaxed text-[#e6dfd6]/65">
+              Every route we run, searchable by region and difficulty. If what
+              you want is not listed, it can almost certainly still be arranged.
+            </p>
+          </div>
+          <span className="mt-10 inline-flex items-center gap-2 text-[0.95rem] font-medium text-[#f0c08c]">
+            Browse the catalogue
+            <span
+              aria-hidden="true"
+              className="transition-transform duration-300 group-hover:translate-x-1"
+            >
+              →
+            </span>
+          </span>
+        </a>
+      </div>
 
-              <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[0.85rem] text-[#e6dfd6]/65 tabular-nums">
-                <span>{count(journey.days, "days")}</span>
-                <span>{altitude(journey.maxAltitudeM)}</span>
-                <span>{DIFFICULTY[journey.difficulty]}</span>
-              </p>
-
-              {/* Two of the three have no negotiated tiers yet. Rendering
-                  nothing there reads as a missing line rather than a known
-                  gap, and the alternative — a guessed figure — is the one
-                  thing this site cannot do. So the gap is named. */}
-              {eight ? (
-                <p className="mt-3 text-[0.9rem] text-[#e9c9a8]">
-                  from {formatFromNPR(eight.perPerson)} per person at 8
-                  travellers
-                  <span className="ml-2 text-[0.7rem] text-[#e6dfd6]/40">
-                    indicative
-                  </span>
-                </p>
-              ) : (
-                <p className="mt-3 text-[0.9rem] text-[#e6dfd6]/45">
-                  Price {TBC} — message us and we will quote it
-                </p>
-              )}
-
-              <span className="mt-4 inline-flex items-center gap-2 text-[0.875rem] text-[#e6dfd6]/70 transition-colors duration-300 group-hover:text-[#f0c08c]">
-                See the days, the altitudes and the costs
-                <span
-                  aria-hidden="true"
-                  className="transition-transform duration-300 group-hover:translate-x-1"
-                >
-                  →
-                </span>
-              </span>
-            </a>
-          </article>
-        );
-      })}
+      {/* Sits over the half-cut card, on the vertical centre of the closed
+          cards' images rather than of the whole row — the open card is taller
+          and centring on it would drop the arrow onto the caption text. */}
+      {edges.left && (
+        <Arrow dir={-1} onClick={() => nudge(-1)} label="Previous treks" />
+      )}
+      {edges.right && (
+        <Arrow dir={1} onClick={() => nudge(1)} label="More treks" />
+      )}
     </div>
+  );
+}
+
+function Arrow({
+  dir,
+  onClick,
+  label,
+}: {
+  dir: 1 | -1;
+  onClick: () => void;
+  label: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={label}
+      className={`absolute top-[13rem] z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#e6dfd6]/20 bg-[#0b0e16]/85 text-[1.1rem] text-[#f0c08c] shadow-lg backdrop-blur-sm transition-colors duration-200 hover:border-[#f0c08c]/60 hover:bg-[#131826]/90 sm:flex ${
+        dir === 1 ? "right-3" : "left-3"
+      }`}
+    >
+      <span aria-hidden="true">{dir === 1 ? "→" : "←"}</span>
+    </button>
   );
 }
