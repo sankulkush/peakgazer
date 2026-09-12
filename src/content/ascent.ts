@@ -174,11 +174,13 @@ export const ASCENT: AscentStage[] = [
  * climbing, so the page ends on the night frame and stays there.
  */
 export const SECTION_STAGES: Record<string, number> = {
-  premise: 0,
-  treks: 1,
-  group: 2.8,
-  writing: 4.2,
-  operator: 5.4,
-  inquiry: 6.8,
+  upcoming: 0,
+  featured: 1,
+  treks: 2,
+  climbs: 3,
+  reviews: 4,
+  blogs: 5,
+  writing: 6,
+  inquiry: 7,
   footer: 8,
 };

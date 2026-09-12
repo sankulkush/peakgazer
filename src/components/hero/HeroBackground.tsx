@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 /** TODO: supplied by the founder. Caption rule — name the place and the month. */
-const HERO_CAPTION = "TODO — place, month year";
+const HERO_CAPTION = "";
 
 /**
  * Full-bleed photograph with a directional scrim.
@@ -25,7 +25,7 @@ export default function HeroBackground() {
       >
         <div data-hero-image-inner className="absolute inset-0">
           <Image
-            src="/images/hero/annapurna-lake.jpg"
+            src="/images/hero/Mardi-view-point.jpg"
             alt="A glacial lake below snow-covered peaks in the Annapurna region"
             fill
             priority

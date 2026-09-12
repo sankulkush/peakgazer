@@ -54,7 +54,7 @@ function formatInquiry(data: InquiryInput): string {
  * one carries the wrong name and must never be shown to a customer — WhatsApp
  * is the visible contact channel.
  */
-const FALLBACK_TO_EMAIL = "uthbus021@gmail.com";
+const FALLBACK_TO_EMAIL = "peakgazer@gmail.com";
 
 async function deliver(subject: string, body: string): Promise<boolean> {
   const apiKey = process.env.RESEND_API_KEY;

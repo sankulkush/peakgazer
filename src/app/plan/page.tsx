@@ -5,7 +5,7 @@ import { getAllJourneys } from "@/lib/content";
 import { RESPONSE_TIME } from "@/content/company";
 
 export const metadata: Metadata = {
-  title: "Plan a trek | Uthbus Tours",
+  title: "Plan a trek | Peakgazer",
   description:
     "Tell us roughly when, how many of you, and what you're unsure about. We reply within 24 hours.",
 };

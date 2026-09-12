@@ -27,45 +27,23 @@ export default function Footer() {
   return (
     <footer className="px-6 pt-20 pb-28 sm:px-10 lg:px-16">
       <div className="mx-auto max-w-6xl">
-        {/*
-          Custom trips. One sentence and a link, deliberately here and not on a
-          trek card — the four-trek focus is the whole point of the page above.
-          These routes are not products we sell; this is an inbound catch for
-          people who ask.
-        */}
-        <p className="max-w-2xl text-[1.0625rem] leading-relaxed text-[#e6dfd6]/70">
-          Coming to Nepal? Tell us what you have in mind and we will plan it
-          around you.{" "}
-          <WhatsAppButton
-            context={{ journeyName: "a trip planned around my own dates" }}
-            className="text-[#f0c08c] underline-offset-4 hover:underline"
-          >
-            Message us
-          </WhatsAppButton>
-          .
-        </p>
-
-        <div className="mt-16 grid gap-12 border-t border-[#e6dfd6]/8 pt-12 sm:grid-cols-2 lg:grid-cols-12">
+        <div className="grid gap-12 pt-12 sm:grid-cols-2 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <p className="font-display text-[1.15rem] font-semibold tracking-[-0.01em] text-[#f7f2ea]">
               {COMPANY_NAME}
             </p>
             <p className="mt-4 max-w-sm text-[0.9rem] leading-relaxed text-[#e6dfd6]/50">
-              Ground operations by {PARTNER_NAME}, a registered trekking agency.{" "}
-              {LICENCE_NUMBER
-                ? `Licence no. ${LICENCE_NUMBER}.`
-                : "Licence no. — pending."}
+              Ground operations by {PARTNER_NAME}, a registered trekking agency.
+              {LICENCE_NUMBER && (
+                <> Licence no. {LICENCE_NUMBER}.</>
+              )}
             </p>
 
             <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2">
               <WhatsAppButton className={linkClass}>
                 WhatsApp · {WHATSAPP_DISPLAY}
               </WhatsAppButton>
-              {instagramPending ? (
-                <span className="text-[0.9rem] text-[#e6dfd6]/30">
-                  Instagram — pending
-                </span>
-              ) : (
+              {!instagramPending && INSTAGRAM_HANDLE && (
                 <a
                   href={`https://instagram.com/${INSTAGRAM_HANDLE}`}
                   target="_blank"

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Inter } from "next/font/google";
+import Navbar from "@/components/layout/Navbar";
 import WhatsAppBar from "@/components/layout/WhatsAppBar";
 import "./globals.css";
 
@@ -44,6 +45,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className="min-h-full flex flex-col bg-background text-foreground"
       >
+        <Navbar />
         {children}
         <WhatsAppBar />
       </body>

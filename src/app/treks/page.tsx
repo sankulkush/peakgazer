@@ -5,7 +5,7 @@ import Footer from "@/components/layout/Footer";
 import { getAllJourneys } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "All treks — durations, altitudes and indicative costs | Uthbus Tours",
+  title: "All treks — durations, altitudes and indicative costs | Peakgazer",
   description:
     "Every trek we feature, with days, highest point, difficulty and indicative cost per person. Search by name, region or difficulty.",
 };

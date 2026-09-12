@@ -1,7 +1,7 @@
 import type { Currency, Rates } from "@/lib/schema";
 
 /** TODO: brand name is unresolved — the repo name is a placeholder. */
-export const COMPANY_NAME = "Uthbus Tours";
+export const COMPANY_NAME = "Peakgazer";
 
 /**
  * Our fulfilment partner. We are an inquiry-first travel company, not an
