@@ -205,12 +205,9 @@ export default function Navbar() {
       >
         <Link
           href="/"
-          className={
-            "font-display text-[1.05rem] font-semibold tracking-[-0.01em]" +
-            " " +
-            textColorClass +
-            " " +
-            hoverColorClass
+          className={progress < 0.5
+            ? "font-display text-[1.05rem] font-semibold tracking-[-0.01em] text-[#14110b] hover:text-[#5a4e3a]"
+            : "font-display text-[1.05rem] font-semibold tracking-[-0.01em] text-[#f7f2ea] hover:text-[#f0c08c]"
           }
         >
           {COMPANY_NAME}
@@ -228,11 +225,9 @@ export default function Navbar() {
               key={item.label}
               href={item.href}
               onClick={(e) => handleNavClick(e, item.href)}
-              className={
-                "px-4 py-2 text-[0.8rem] font-medium uppercase tracking-[0.1em] transition-colors " +
-                textColorClass +
-                "/70 hover:" +
-                textColorClass
+              className={progress < 0.5
+                ? "px-4 py-2 text-[0.8rem] font-medium uppercase tracking-[0.1em] transition-colors text-[#14110b]/70 hover:text-[#14110b]"
+                : "px-4 py-2 text-[0.8rem] font-medium uppercase tracking-[0.1em] transition-colors text-[#f7f2ea]/70 hover:text-[#f7f2ea]"
               }
             >
               {item.label}
@@ -271,11 +266,9 @@ export default function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp"
-              className={
-                "flex h-8 w-8 items-center justify-center rounded-full transition-colors " +
-                iconColorClass +
-                " " +
-                hoverBgClass
+              className={progress < 0.5
+                ? "flex h-8 w-8 items-center justify-center rounded-full transition-colors text-[#14110b]/60 hover:text-[#14110b] hover:bg-[#e6dfd6]/20"
+                : "flex h-8 w-8 items-center justify-center rounded-full transition-colors text-[#f7f2ea]/60 hover:text-[#f7f2ea] hover:bg-white/5"
               }
             >
               <WhatsAppIcon />
@@ -286,11 +279,9 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"
-            className={
-              "flex h-8 w-8 items-center justify-center rounded-full transition-colors " +
-              iconColorClass +
-              " " +
-              hoverBgClass
+            className={progress < 0.5
+              ? "flex h-8 w-8 items-center justify-center rounded-full transition-colors text-[#14110b]/60 hover:text-[#14110b] hover:bg-[#e6dfd6]/20"
+              : "flex h-8 w-8 items-center justify-center rounded-full transition-colors text-[#f7f2ea]/60 hover:text-[#f7f2ea] hover:bg-white/5"
             }
           >
             <InstagramIcon />
@@ -300,11 +291,9 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="TikTok"
-            className={
-              "flex h-8 w-8 items-center justify-center rounded-full transition-colors " +
-              iconColorClass +
-              " " +
-              hoverBgClass
+            className={progress < 0.5
+              ? "flex h-8 w-8 items-center justify-center rounded-full transition-colors text-[#14110b]/60 hover:text-[#14110b] hover:bg-[#e6dfd6]/20"
+              : "flex h-8 w-8 items-center justify-center rounded-full transition-colors text-[#f7f2ea]/60 hover:text-[#f7f2ea] hover:bg-white/5"
             }
           >
             <TikTokIcon />
