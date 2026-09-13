@@ -18,7 +18,7 @@ export default function UpcomingGroupTreks() {
   return (
     <section
       id="upcoming-treks"
-      className="border-b border-[#e6dfd6]/8 px-6 py-14 sm:px-10 sm:py-20 lg:px-16"
+      className="border-b border-[#e6dfd6]/8 px-6 pt-32 py-14 sm:px-10 sm:pt-40 sm:py-20 lg:px-16"
     >
       <div className="mx-auto max-w-6xl">
         <Reveal className="max-w-xl">

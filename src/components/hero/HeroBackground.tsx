@@ -50,23 +50,6 @@ export default function HeroBackground() {
         */}
       </div>
 
-      {/* Below lg the text spans most of the width, so the scrim has to carry
-          all the way across. Still directional, but the delta is small — there
-          is pure white snow under the text here and it measures 1.6:1 without
-          this much cover. */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-[linear-gradient(to_right,rgba(10,12,18,0.86)_0%,rgba(10,12,18,0.78)_50%,rgba(10,12,18,0.72)_100%)] lg:hidden"
-      />
-
-      {/* lg and up: the text column ends at ~42% of the viewport, so the scrim
-          holds to 46% and then falls away fast. Everything past 66% is the
-          untouched photograph — snow, sky and lake stay clean. */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 hidden bg-[linear-gradient(to_right,rgba(10,12,18,0.86)_0%,rgba(10,12,18,0.80)_25%,rgba(10,12,18,0.72)_46%,rgba(10,12,18,0.25)_58%,rgba(10,12,18,0)_66%)] lg:block"
-      />
-
       {/* Holds the lower edge so the scroll indicator and caption stay legible. */}
       <div
         aria-hidden="true"

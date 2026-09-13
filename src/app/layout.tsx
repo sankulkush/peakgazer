@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Inter } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
-import WhatsAppBar from "@/components/layout/WhatsAppBar";
 import "./globals.css";
 
 // Body. Weight axis only — Inter's optical-size axis is not worth the extra
@@ -47,7 +46,6 @@ export default function RootLayout({
       >
         <Navbar />
         {children}
-        <WhatsAppBar />
       </body>
     </html>
   );
