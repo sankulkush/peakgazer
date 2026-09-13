@@ -118,6 +118,7 @@ export default function HeroSection() {
 
   return (
     <section
+      id="hero"
       ref={root}
       aria-label="Treks in Annapurna and Langtang"
       className="relative h-[100svh] w-full overflow-hidden bg-[#0a0c12]"
