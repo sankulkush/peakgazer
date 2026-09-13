@@ -25,7 +25,7 @@ export default function HeroBackground() {
       >
         <div data-hero-image-inner className="absolute inset-0">
           <Image
-            src="/images/hero/Mardi-view-point.jpg"
+            src="/images/hero/mardi-view-point.jpg"
             alt="A glacial lake below snow-covered peaks in the Annapurna region"
             fill
             priority
