@@ -107,7 +107,7 @@ export default function Navbar() {
     <>
       {/* Mobile: merged single pill (logo + social icons + hamburger) */}
       <div
-        className="fixed top-4 inset-x-4 z-50 flex items-center justify-between rounded-full px-5 py-2 sm:top-6 sm:hidden"
+        className="fixed top-4 left-[5%] right-[5%] z-50 flex items-center justify-between rounded-full px-5 py-4 sm:top-6 sm:left-[5%] sm:right-[5%] sm:hidden"
         style={{
           ...pillStyle,
           boxShadow: "0 4px 6px 0 rgba(0, 0, 0, 0.05), 0 1px 3px 0 rgba(0, 0, 0, 0.03)",
