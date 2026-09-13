@@ -14,16 +14,33 @@ const NAV_ITEMS = [
   { label: "Blogs", href: "#blogs" },
 ];
 
-const WhatsAppIcon = () => (
-  <img src="/icons/whatsapp.svg" alt="WhatsApp" width={24} height={24} />
+import { SiWhatsapp, SiInstagram, SiTiktok } from "react-icons/si";
+
+const WhatsAppIcon = ({ progress = 0, colorClass = "text-[#14110b]" }: { progress?: number; colorClass?: string }) => (
+  <div className="relative h-6 w-6">
+    <img src="/icons/whatsapp.svg" alt="WhatsApp" className="absolute inset-0 h-full w-full object-contain" style={{ opacity: 1 - progress }} />
+    <div className={`absolute inset-0 flex items-center justify-center ${colorClass}`} style={{ opacity: progress }}>
+      <SiWhatsapp className="text-current" size={20} />
+    </div>
+  </div>
 );
 
-const InstagramIcon = () => (
-  <img src="/icons/instagram.svg" alt="Instagram" width={24} height={24} />
+const InstagramIcon = ({ progress = 0, colorClass = "text-[#14110b]" }: { progress?: number; colorClass?: string }) => (
+  <div className="relative h-6 w-6">
+    <img src="/icons/instagram.svg" alt="Instagram" className="absolute inset-0 h-full w-full object-contain" style={{ opacity: 1 - progress }} />
+    <div className={`absolute inset-0 flex items-center justify-center ${colorClass}`} style={{ opacity: progress }}>
+      <SiInstagram className="text-current" size={20} />
+    </div>
+  </div>
 );
 
-const TikTokIcon = () => (
-  <img src="/icons/tiktok.svg" alt="TikTok" width={24} height={24} />
+const TikTokIcon = ({ progress = 0, colorClass = "text-[#14110b]" }: { progress?: number; colorClass?: string }) => (
+  <div className="relative h-6 w-6">
+    <img src="/icons/tiktok.svg" alt="TikTok" className="absolute inset-0 h-full w-full object-contain" style={{ opacity: 1 - progress }} />
+    <div className={`absolute inset-0 flex items-center justify-center ${colorClass}`} style={{ opacity: progress }}>
+      <SiTiktok className="text-current" size={20} />
+    </div>
+  </div>
 );
 
 export default function Navbar() {
@@ -160,7 +177,7 @@ export default function Navbar() {
                 hoverBgClass
               }
             >
-              <WhatsAppIcon />
+              <WhatsAppIcon progress={progress} colorClass={textColorClass} />
             </a>
           )}
           <a
@@ -175,7 +192,7 @@ export default function Navbar() {
               hoverBgClass
             }
           >
-            <InstagramIcon />
+            <InstagramIcon progress={progress} colorClass={textColorClass} />
           </a>
           <a
             href="https://tiktok.com/@peakgazer"
@@ -189,7 +206,7 @@ export default function Navbar() {
               hoverBgClass
             }
           >
-            <TikTokIcon />
+            <TikTokIcon progress={progress} colorClass={textColorClass} />
           </a>
           <button
             type="button"
